@@ -41,7 +41,8 @@ paths:
       description: |-
         Information on the state of charge in the battery and its various settings.
         https://tesla-api.timdorr.com/vehicle/state/chargestate
-      security: []
+      security:
+        - Authorization: []
   /api/1/vehicles:
     get:
       summary: Vehicles
@@ -58,7 +59,8 @@ paths:
       description: |-
         Retrieve a list of your owned vehicles (includes vehicles not yet shipped!)
         https://tesla-api.timdorr.com/api-basics/vehicles
-      security: []
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/vehicle_data':
     parameters:
       - schema:
@@ -82,7 +84,8 @@ paths:
         A rollup of all the data_request endpoints plus vehicle configuration.
         Note: all *_range values are in miles, irrespective of GUI configuration.
         https://tesla-api.timdorr.com/vehicle/state/data
-      security: []
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/data_request/climate_state':
     parameters:
       - schema:
@@ -105,8 +108,9 @@ paths:
       description: |-
         Information on the current internal temperature and climate control system.
         https://tesla-api.timdorr.com/vehicle/state/climatestate
-      security: []
-  /oauth/token:
+      security:
+        - Authorization: []
+  /oauth/token?grat_type=password:
     post:
       summary: Get Access Token
       tags:
@@ -131,14 +135,7 @@ paths:
         The initial authentication process is via an OAuth 2.0 Password Grant with the same credentials used for tesla.com and the mobile apps.
         The current client ID and secret are available here.
         You will get back an access_token which is treated as an OAuth 2.0 Bearer Token. This token is passed along in an Authorization header with all future requests:
-      parameters:
-        - schema:
-            type: string
-            enum:
-              - password
-          in: header
-          name: grant_type
-          description: Currently This API can only use "password" grant.
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -152,10 +149,6 @@ paths:
                   client_secret: '123'
                   email: elon@teslamotors.com
                   password: edisonsux
-          application/xml:
-            schema:
-              type: object
-              properties: {}
         description: ''
     parameters: []
   '/api/1/vehicles/{id}':
@@ -178,7 +171,8 @@ paths:
                 $ref: ./models/vehicle.v1.yaml
       operationId: get-api-1-vehicles-id
       description: These resources are read-only and determine the state of the vehicle's various sub-systems.
-      security: []
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/data_request/drive_state':
     parameters:
       - schema:
@@ -199,6 +193,8 @@ paths:
                 $ref: ./models/drive-state.v1.yaml
       operationId: get-api-1-vehicles-id-data_request-drive_state
       description: Returns the driving and position state of the vehicle.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/data_request/gui_settings':
     parameters:
       - schema:
@@ -219,6 +215,8 @@ paths:
                 $ref: ./models/gui-settings.v1.yaml
       operationId: get-api-1-vehicles-id-data_request-gui_settings
       description: 'Returns various information about the GUI settings of the car, such as unit format and range display.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/data_request/vehicle_stat':
     parameters:
       - schema:
@@ -241,6 +239,8 @@ paths:
       description: |-
         Returns the vehicle's physical state, such as which doors are open.
         For the trunk (rt) and frunk (ft) fields, you should interpret a zero (0) value as closed and a non-zero value as open (partially or fully).
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/data_request/vehicle_config':
     parameters:
       - schema:
@@ -261,6 +261,8 @@ paths:
                 $ref: ./models/vehicle-config.v1.yaml
       operationId: get-api-1-vehicles-id-data_request-vehicle_config
       description: 'Returns the vehicle''s configuration information including model, color, badging and wheels.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/mobile_enabled':
     parameters:
       - schema:
@@ -281,6 +283,8 @@ paths:
                 $ref: ./models/mobile-enabled.v1.yaml
       operationId: get-api-1-vehicles-id-mobile_enabled
       description: Whether mobile access is enabled.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/nearby_charging_sites':
     parameters:
       - schema:
@@ -330,6 +334,8 @@ paths:
           in: query
           name: 'statusId[]'
           description: ''
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/wake_up':
     parameters:
       - schema:
@@ -350,6 +356,8 @@ paths:
               schema:
                 $ref: ./models/wakeup-respponse.v1.yaml
       description: Wakes up the car from a sleeping state.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/honk_horn':
     parameters:
       - schema:
@@ -370,6 +378,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Honks the horn twice.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/flash_lights':
     parameters:
       - schema:
@@ -390,6 +400,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Flashes the headlights once.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/remote_start_drive':
     parameters:
       - schema:
@@ -417,6 +429,8 @@ paths:
           name: password
           description: The password for the authenticated tesla.com account.
           required: true
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/trigger_homelink':
     parameters:
       - schema:
@@ -448,6 +462,8 @@ paths:
           in: query
           name: lon
           description: Current longitude.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/speed_limit_set_limit':
     parameters:
       - schema:
@@ -474,6 +490,8 @@ paths:
           in: query
           name: limit_mph
           description: The speed limit in MPH. Must be between 50-90.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/speed_limit_activate':
     parameters:
       - schema:
@@ -500,6 +518,8 @@ paths:
           in: query
           name: pin
           description: 'The existing PIN, if previously set, or a new 4 digit PIN.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/speed_limit_deactivate':
     parameters:
       - schema:
@@ -526,6 +546,8 @@ paths:
           in: query
           name: pin
           description: The 4 digit PIN used to activate Speed Limit Mode.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/speed_limit_clear_pin':
     parameters:
       - schema:
@@ -552,6 +574,8 @@ paths:
           in: query
           name: ping
           description: The 4 digit PIN used to activate Speed Limit Mode.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/set_valet_mode':
     parameters:
       - schema:
@@ -583,6 +607,8 @@ paths:
           in: query
           name: password
           description: A PIN to deactivate Valet Mode. Can be blank if activating with a previous PIN.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/reset_valet_pin':
     parameters:
       - schema:
@@ -603,6 +629,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Clears the currently set PIN for Valet Mode when deactivated. A new PIN will be required when activating again.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/set_sentry_mode':
     parameters:
       - schema:
@@ -635,6 +663,8 @@ paths:
             schema:
               type: object
               properties: {}
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/door_unlock':
     parameters:
       - schema:
@@ -655,6 +685,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Unlocks the doors to the car. Extends the handles on the S and X.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/door_lock':
     parameters:
       - schema:
@@ -675,6 +707,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'Locks the doors to the car. Retracts the handles on the S and X, if they are extended.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/actuate_trunk':
     parameters:
       - schema:
@@ -704,6 +738,8 @@ paths:
           in: query
           name: which_trunk
           description: Which trunk to open/close. rear and front are the only options.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/window_control':
     parameters:
       - schema:
@@ -745,6 +781,8 @@ paths:
           in: query
           description: Your current longitude.  See Notes above.
           name: lon
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/sun_roof_control':
     parameters:
       - schema:
@@ -776,6 +814,8 @@ paths:
           in: query
           name: state
           description: The amount to open the sunroof. Currently this only allows the values vent and close.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_port_door_open':
     parameters:
       - schema:
@@ -796,6 +836,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Opens the charge port.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_port_door_close':
     parameters:
       - schema:
@@ -816,6 +858,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'For vehicles with a motorized charge port, this closes it.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_start':
     parameters:
       - schema:
@@ -836,6 +880,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'If the car is plugged in but not currently charging, this will start it charging.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_stop':
     parameters:
       - schema:
@@ -856,6 +902,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'If the car is currently charging, this will stop it.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_standard':
     parameters:
       - schema:
@@ -876,6 +924,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Sets the charge limit to "standard" or ~90%.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/charge_max_range':
     parameters:
       - schema:
@@ -896,6 +946,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Sets the charge limit to "max range" or 100%.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/set_charge_limit':
     parameters:
       - schema:
@@ -916,6 +968,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Sets the charge limit to a custom value.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/auto_conditioning_start':
     parameters:
       - schema:
@@ -936,6 +990,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/auto_conditioning_stop':
     parameters:
       - schema:
@@ -956,6 +1012,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Stop the climate control (HVAC) system.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/set_temps':
     parameters:
       - schema:
@@ -989,6 +1047,8 @@ paths:
           in: query
           name: passenger_temp
           description: The desired temperature on the passenger's side in celsius.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/set_preconditioning_max':
     parameters:
       - schema:
@@ -1015,6 +1075,8 @@ paths:
           in: query
           name: 'on'
           description: 'True to turn on, false to turn off.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/remote_seat_heater_request':
     parameters:
       - schema:
@@ -1050,6 +1112,8 @@ paths:
           in: query
           name: level
           description: The desired level for the heater. (0-3)
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/remote_steering_wheel_heater_request':
     parameters:
       - schema:
@@ -1076,6 +1140,8 @@ paths:
           in: query
           name: 'on'
           description: 'True to turn on, false to turn off.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_toggle_playback':
     parameters:
       - schema:
@@ -1096,6 +1162,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.'
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_next_track':
     parameters:
       - schema:
@@ -1116,6 +1184,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Skips to the next track in the current playlist.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_prev_track':
     parameters:
       - schema:
@@ -1136,6 +1206,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Skips to the previous track in the current playlist. Does nothing for streaming from Stitcher.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_next_fav':
     parameters:
       - schema:
@@ -1156,6 +1228,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Skips to the next saved favorite in the media system.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_prev_fav':
     parameters:
       - schema:
@@ -1176,6 +1250,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Skips to the previous saved favorite in the media system.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_volume_up':
     parameters:
       - schema:
@@ -1196,6 +1272,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Turns up the volume of the media system.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/media_volume_down':
     parameters:
       - schema:
@@ -1216,6 +1294,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: Turns down the volume of the media system.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/share':
     parameters:
       - schema:
@@ -1243,6 +1323,8 @@ paths:
           application/json:
             schema:
               $ref: ./models/command-share-request.v1.yaml
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/schedule_software_update':
     parameters:
       - schema:
@@ -1269,6 +1351,8 @@ paths:
           in: query
           name: offset_sec
           description: How many seconds in the future to schedule the update. Set to 0 for immediate install.
+      security:
+        - Authorization: []
   '/api/1/vehicles/{id}/command/cancel_software_update':
     parameters:
       - schema:
@@ -1289,6 +1373,8 @@ paths:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
       description: 'Cancels a software update, if one is scheduled and has not yet started.'
+      security:
+        - Authorization: []
   /oauth/revoke:
     parameters: []
     post:
@@ -1313,11 +1399,78 @@ paths:
           application/json:
             schema:
               $ref: ./models/revoke-token-request.v1.yaml
+  /api/1/products:
+    get:
+      summary: Products
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/products.v1.yaml
+        '401':
+          description: Unauthorized
+      operationId: get-api-1-products
+      description: 'Returns all products including vehicles, powerwalls, and energy sites'
+      security:
+        - Authorization: []
+  /oauth/token?grant_type=refresh_token:
+    post:
+      summary: Reflesh Access Token
+      operationId: post-oauth-token?grant_type=password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/authentication-response.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    access_token: abc123
+                    token_type: bearer
+                    expires_in: 3888000
+                    refresh_token: cba321
+                    created_at: 1538359034
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./models/error_invalid_grant.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    error: invalid_grant
+                    error_description: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
+        '':
+          description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/authentication-request-reflesh.v1.yaml
+            examples:
+              example:
+                value:
+                  client_secret: string
+                  client_id: string
+                  grant_type: refresh_token
+                  refresh_token: 407001ceaed2bd70f853ea59c5940597bdc50daf3175afacb19129f0ac4e85a1
+      description: Reflesh Access Token
+      tags:
+        - Authentication
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
     Authorization:
-      name: Access Token
+      name: Authorization
       type: apiKey
       in: header
       description: 'FIrst of all, You should get Access Token from /oauth/token endpoint. Then, You set Access Token this property.'

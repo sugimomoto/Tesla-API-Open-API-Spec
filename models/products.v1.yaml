@@ -1,0 +1,32 @@
+title: products.v1
+type: object
+properties:
+  response:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        vehicle_id:
+          type: string
+        vin:
+          type: string
+        display_name:
+          type: string
+        option_codes:
+          type: string
+        color:
+          type: string
+        tokens:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        id_s:
+          type: string
+        calendar_enabled:
+          type: boolean
+  count:
+    type: number

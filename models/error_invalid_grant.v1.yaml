@@ -1,0 +1,9 @@
+title: error_invalid_grant.v1
+type: object
+properties:
+  error:
+    type: string
+    example: invalid_grant
+  error_description:
+    type: string
+    example: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
