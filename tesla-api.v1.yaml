@@ -1858,8 +1858,6 @@ paths:
                     expires_in: 3888000
                     refresh_token: cba321
                     created_at: 1538359034
-        '201':
-          description: Created
         '401':
           description: Unauthorized
           content:
@@ -1871,8 +1869,6 @@ paths:
                   value:
                     error: invalid_grant
                     error_description: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
-        '':
-          description: ''
       requestBody:
         content:
           application/json:
@@ -1896,4 +1892,4 @@ components:
       name: Authorization
       type: apiKey
       in: header
-      description: 'FIrst of all, You should get Access Token from /oauth/token endpoint. Then, You set Access Token this property.'
+      description: 'Bearer {access_token} from authentication'
