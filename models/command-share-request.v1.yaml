@@ -1,4 +1,4 @@
-title: command-share-request
+title: Command Share Request
 type: object
 properties:
   type:

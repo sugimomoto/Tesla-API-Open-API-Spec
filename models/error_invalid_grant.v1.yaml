@@ -1,4 +1,4 @@
-title: error_invalid_grant.v1
+title: Error Invalid Grant
 type: object
 properties:
   error:

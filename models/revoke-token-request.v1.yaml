@@ -1,4 +1,4 @@
-title: revoke-token-request.v1
+title: Authentication Request Revoke Token
 type: object
 properties:
   access_token:

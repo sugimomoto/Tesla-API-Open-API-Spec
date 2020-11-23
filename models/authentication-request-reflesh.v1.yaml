@@ -1,4 +1,4 @@
-title: authentication-request-reflesh.v1
+title: Authentication Request Reflesh Token
 type: object
 properties:
   client_secret:

@@ -1,5 +1,0 @@
-title: wakeup-respponse
-type: object
-properties:
-  id:
-    type: string

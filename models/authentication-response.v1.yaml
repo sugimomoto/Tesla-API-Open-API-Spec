@@ -1,4 +1,4 @@
-title: authentication-response
+title: Authentication Response Access Token
 type: object
 properties:
   access_token:

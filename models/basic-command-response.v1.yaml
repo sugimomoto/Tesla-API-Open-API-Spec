@@ -1,4 +1,4 @@
-title: basic-command-response
+title: Basic Command Response
 type: object
 properties:
   reason:

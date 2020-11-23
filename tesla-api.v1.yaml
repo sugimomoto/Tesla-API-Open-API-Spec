@@ -37,6 +37,51 @@ paths:
             application/json:
               schema:
                 $ref: ./models/charge-state.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      battery_heater_on: false
+                      battery_level: 64
+                      battery_range: 167.96
+                      charge_current_request: 48
+                      charge_current_request_max: 48
+                      charge_enable_request: true
+                      charge_energy_added: 12.41
+                      charge_limit_soc: 90
+                      charge_limit_soc_max: 100
+                      charge_limit_soc_min: 50
+                      charge_limit_soc_std: 90
+                      charge_miles_added_ideal: 50
+                      charge_miles_added_rated: 40
+                      charge_port_cold_weather_mode: false
+                      charge_port_door_open: false
+                      charge_port_latch: Engaged
+                      charge_rate: 0
+                      charge_to_max_range: false
+                      charger_actual_current: 0
+                      charger_pilot_current: 48
+                      charger_power: 0
+                      charger_voltage: 0
+                      charging_state: Disconnected
+                      conn_charge_cable: <invalid>
+                      est_battery_range: 116.67
+                      fast_charger_brand: <invalid>
+                      fast_charger_present: false
+                      fast_charger_type: <invalid>
+                      ideal_battery_range: 209.95
+                      managed_charging_active: false
+                      managed_charging_user_canceled: false
+                      max_range_charge_counter: 0
+                      minutes_to_full_charge: 0
+                      not_enough_power_to_heat: false
+                      scheduled_charging_pending: false
+                      time_to_full_charge: 0
+                      timestamp: 1543187621530
+                      trip_charging: false
+                      usable_battery_level: 64
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-charge_state
       description: |-
         Information on the state of charge in the battery and its various settings.
@@ -55,6 +100,26 @@ paths:
             application/json:
               schema:
                 $ref: ./models/vehicles.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      - id: 12345678901234568
+                        vehicle_id: 1234567890
+                        vin: 5YJSA11111111111
+                        display_name: Nikola 2.0
+                        option_codes: 'MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS'
+                        tokens:
+                          - abcdef1234567890
+                          - 1234567890abcdef
+                        state: online
+                        in_service: false
+                        id_s: '12345678901234567'
+                        calendar_enabled: true
+                        api_version: 7
+                    count: 1
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles
       description: |-
         Retrieve a list of your owned vehicles (includes vehicles not yet shipped!)
@@ -79,6 +144,190 @@ paths:
             application/json:
               schema:
                 $ref: ./models/data.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      id: 12345678901234568
+                      user_id: 123
+                      vehicle_id: 1234567890
+                      vin: 5YJSA11111111111
+                      display_name: Nikola 2.0
+                      option_codes: 'MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS'
+                      tokens:
+                        - abcdef1234567890
+                        - 1234567890abcdef
+                      state: online
+                      in_service: false
+                      id_s: '12345678901234567'
+                      calendar_enabled: true
+                      api_version: 7
+                      drive_state:
+                        gps_as_of: 1538363883
+                        heading: 5
+                        latitude: 33.111111
+                        longitude: -88.111111
+                        native_latitude: 33.111111
+                        native_location_supported: 1
+                        native_longitude: -88.111111
+                        native_type: wgs
+                        power: 0
+                        timestamp: 1538364666096
+                      climate_state:
+                        battery_heater: false
+                        battery_heater_no_power: false
+                        climate_keeper_mode: dog
+                        defrost_mode: 0
+                        driver_temp_setting: 21.6
+                        fan_status: 0
+                        is_climate_on: false
+                        is_front_defroster_on: false
+                        is_preconditioning: false
+                        is_rear_defroster_on: false
+                        max_avail_temp: 28
+                        min_avail_temp: 15
+                        passenger_temp_setting: 21.6
+                        remote_heater_control_enabled: true
+                        seat_heater_left: 3
+                        seat_heater_rear_center: 0
+                        seat_heater_rear_left: 1
+                        seat_heater_rear_left_back: 0
+                        seat_heater_rear_right: 1
+                        seat_heater_rear_right_back: 0
+                        seat_heater_right: 2
+                        side_mirror_heaters: false
+                        steering_wheel_heater: false
+                        timestamp: 1543186971731
+                        wiper_blade_heater: false
+                      charge_state:
+                        battery_heater_on: false
+                        battery_level: 64
+                        battery_range: 167.96
+                        charge_current_request: 48
+                        charge_current_request_max: 48
+                        charge_enable_request: true
+                        charge_energy_added: 12.41
+                        charge_limit_soc: 90
+                        charge_limit_soc_max: 100
+                        charge_limit_soc_min: 50
+                        charge_limit_soc_std: 90
+                        charge_miles_added_ideal: 50
+                        charge_miles_added_rated: 40
+                        charge_port_cold_weather_mode: false
+                        charge_port_door_open: false
+                        charge_port_latch: Engaged
+                        charge_rate: 0
+                        charge_to_max_range: false
+                        charger_actual_current: 0
+                        charger_pilot_current: 48
+                        charger_power: 0
+                        charger_voltage: 0
+                        charging_state: Disconnected
+                        conn_charge_cable: <invalid>
+                        est_battery_range: 118.38
+                        fast_charger_brand: <invalid>
+                        fast_charger_present: false
+                        fast_charger_type: <invalid>
+                        ideal_battery_range: 209.95
+                        managed_charging_active: false
+                        managed_charging_user_canceled: false
+                        max_range_charge_counter: 0
+                        minutes_to_full_charge: 0
+                        not_enough_power_to_heat: false
+                        scheduled_charging_pending: false
+                        time_to_full_charge: 0
+                        timestamp: 1543186971727
+                        trip_charging: false
+                        usable_battery_level: 64
+                      gui_settings:
+                        gui_24_hour_time: false
+                        gui_charge_rate_units: mi/hr
+                        gui_distance_units: mi/hr
+                        gui_range_display: Rated
+                        gui_temperature_units: F
+                        show_range_units: true
+                        timestamp: 1543186971728
+                      vehicle_state:
+                        api_version: 7
+                        autopark_state_v2: standby
+                        autopark_style: standard
+                        calendar_supported: true
+                        car_version: 2019.40.2.1 38f55d9f9205
+                        center_display_state: 0
+                        df: 0
+                        dr: 0
+                        fd_window: 0
+                        fp_window: 0
+                        ft: 0
+                        homelink_device_count: 0
+                        homelink_nearby: true
+                        is_user_present: false
+                        last_autopark_error: no_error
+                        locked: true
+                        media_state:
+                          remote_control_enabled: true
+                        notifications_supported: true
+                        odometer: 33561.422505
+                        parsed_calendar_supported: true
+                        pf: 0
+                        pr: 0
+                        rd_window: 0
+                        remote_start: false
+                        remote_start_enabled: true
+                        remote_start_supported: true
+                        rp_window: 0
+                        rt: 0
+                        sentry_mode: true
+                        sentry_mode_available: true
+                        smart_summon_available: true
+                        software_update:
+                          download_perc: 100
+                          expected_duration_sec: 2700
+                          install_perc: 10
+                          scheduled_time_ms: 1575689678432
+                          status: scheduled
+                          version: 2019.40.2.1
+                        speed_limit_mode:
+                          active: false
+                          current_limit_mph: 75
+                          max_limit_mph: 90
+                          min_limit_mph: 50
+                          pin_code_set: false
+                        summon_standby_mode_enabled: true
+                        sun_roof_percent_open: 0
+                        sun_roof_state: unknown
+                        timestamp: 1538364666096
+                        valet_mode: false
+                        valet_pin_needed: true
+                        vehicle_name: Nikola 2.0
+                      vehicle_config:
+                        can_accept_navigation_requests: true
+                        can_actuate_trunks: true
+                        car_special_type: base
+                        car_type: models2
+                        charge_port_type: US
+                        eu_vehicle: false
+                        exterior_color: White
+                        has_air_suspension: true
+                        has_ludicrous_mode: false
+                        key_version: 1
+                        motorized_charge_port: true
+                        perf_config: P2
+                        plg: true
+                        rear_seat_heaters: 0
+                        rear_seat_type: 0
+                        rhd: false
+                        roof_color: None
+                        seat_type: 2
+                        spoiler_type: None
+                        sun_roof_installed: 2
+                        third_row_seats: None
+                        timestamp: 1538364666096
+                        trim_badging: p90d
+                        use_range_badging: false
+                        wheel_type: AeroTurbine19
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-vehicle_data
       description: |-
         A rollup of all the data_request endpoints plus vehicle configuration.
@@ -104,6 +353,37 @@ paths:
             application/json:
               schema:
                 $ref: ./models/climate-state.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      battery_heater: false
+                      battery_heater_no_power: false
+                      climate_keeper_mode: dog
+                      defrost_mode: 0
+                      driver_temp_setting: 21.6
+                      fan_status: 0
+                      is_climate_on: false
+                      is_front_defroster_on: false
+                      is_preconditioning: false
+                      is_rear_defroster_on: false
+                      max_avail_temp: 28
+                      min_avail_temp: 15
+                      passenger_temp_setting: 21.6
+                      remote_heater_control_enabled: true
+                      seat_heater_left: 3
+                      seat_heater_rear_center: 0
+                      seat_heater_rear_left: 1
+                      seat_heater_rear_left_back: 0
+                      seat_heater_rear_right: 1
+                      seat_heater_rear_right_back: 0
+                      seat_heater_right: 2
+                      side_mirror_heaters: false
+                      steering_wheel_heater: false
+                      timestamp: 1543187641727
+                      wiper_blade_heater: false
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-climate_state
       description: |-
         Information on the current internal temperature and climate control system.
@@ -169,6 +449,9 @@ paths:
             application/json:
               schema:
                 $ref: ./models/vehicle.v1.yaml
+              examples: {}
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id
       description: These resources are read-only and determine the state of the vehicle's various sub-systems.
       security:
@@ -191,6 +474,22 @@ paths:
             application/json:
               schema:
                 $ref: ./models/drive-state.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      gps_as_of: 1543187664
+                      heading: 8
+                      latitude: 33.111111
+                      longitude: -88.111111
+                      native_latitude: 33.111111
+                      native_location_supported: 1
+                      native_longitude: -88.111111
+                      native_type: wgs
+                      power: 0
+                      timestamp: 1543187666472
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-drive_state
       description: Returns the driving and position state of the vehicle.
       security:
@@ -213,6 +512,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/gui-settings.v1.yaml
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-gui_settings
       description: 'Returns various information about the GUI settings of the car, such as unit format and range display.'
       security:
@@ -235,6 +536,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/vehicle-state.v1.yaml
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-vehicle_stat
       description: |-
         Returns the vehicle's physical state, such as which doors are open.
@@ -259,6 +562,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/vehicle-config.v1.yaml
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-data_request-vehicle_config
       description: 'Returns the vehicle''s configuration information including model, color, badging and wheels.'
       security:
@@ -281,6 +586,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/mobile-enabled.v1.yaml
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-mobile_enabled
       description: Whether mobile access is enabled.
       security:
@@ -326,6 +633,8 @@ paths:
                           total_stalls: 12
                           site_closed: false
                       timestamp: 1545092157769
+        '401':
+          description: Unauthorized
       operationId: get-api-1-vehicles-id-nearby_charging_sites
       description: Returns a list of nearby Tesla-operated charging stations. (Requires car software version 2018.48 or higher.)
       parameters:
@@ -354,7 +663,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/wakeup-respponse.v1.yaml
+                $ref: ./models/vehicle.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      id: 12345678901234568
+                      vehicle_id: 1234567890
+                      vin: 5YJSA11111111111
+                      display_name: Nikola 2.0
+                      option_codes: 'MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS'
+                      tokens:
+                        - abcdef1234567890
+                        - 1234567890abcdef
+                      state: online
+                      in_service: false
+                      id_s: '12345678901234567'
+                      calendar_enabled: true
+                      api_version: 7
+        '401':
+          description: Unauthorized
       description: Wakes up the car from a sleeping state.
       security:
         - Authorization: []
@@ -377,6 +705,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Honks the horn twice.
       security:
         - Authorization: []
@@ -399,6 +729,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Flashes the headlights once.
       security:
         - Authorization: []
@@ -421,6 +753,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Enables keyless driving. There is a two minute window after issuing the command to start driving the car.
       parameters:
         - schema:
@@ -450,6 +784,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Opens or closes the primary Homelink device. The provided location must be in proximity of stored location of the Homelink device.
       parameters:
         - schema:
@@ -483,6 +819,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Sets the maximum speed allowed when Speed Limit Mode is active.
       parameters:
         - schema:
@@ -511,6 +849,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Activates Speed Limit Mode at the currently set speed.
       parameters:
         - schema:
@@ -539,6 +879,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Deactivates Speed Limit Mode if it is currently active.
       parameters:
         - schema:
@@ -567,6 +909,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Clears the currently set PIN for Speed Limit Mode.
       parameters:
         - schema:
@@ -595,6 +939,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Valet Mode limits the car''s top speed to 70MPH and 80kW of acceleration power. It also disables Homelink, Bluetooth and Wifi settings, and the ability to disable mobile access to the car. It also hides your favorites, home, and work locations in navigation.'
       parameters:
         - schema:
@@ -628,6 +974,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Clears the currently set PIN for Valet Mode when deactivated. A new PIN will be required when activating again.
       security:
         - Authorization: []
@@ -650,6 +998,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Turns sentry mode on or off.
       parameters:
         - schema:
@@ -684,6 +1034,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Unlocks the doors to the car. Extends the handles on the S and X.
       security:
         - Authorization: []
@@ -706,6 +1058,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Locks the doors to the car. Retracts the handles on the S and X, if they are extended.'
       security:
         - Authorization: []
@@ -728,6 +1082,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.'
       parameters:
         - schema:
@@ -759,6 +1115,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: |-
         Controls the windows. Will vent or close all windows simultaneously.
         lat and lon values must be near the current location of the car for close operation to succeed. For vent, the lat and lon values are ignored, and may both be 0 (which has been observed from the app itself).
@@ -802,6 +1160,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: |-
         Controls the panoramic sunroof on the Model S.
         Note: There were state options for open (100%), comfort (~80%), and move (combined with a percent parameter), but they have since been disabled server side. It is unknown if they will return at a later time.
@@ -835,6 +1195,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Opens the charge port.
       security:
         - Authorization: []
@@ -857,6 +1219,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'For vehicles with a motorized charge port, this closes it.'
       security:
         - Authorization: []
@@ -879,6 +1243,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'If the car is plugged in but not currently charging, this will start it charging.'
       security:
         - Authorization: []
@@ -901,6 +1267,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'If the car is currently charging, this will stop it.'
       security:
         - Authorization: []
@@ -923,6 +1291,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Sets the charge limit to "standard" or ~90%.
       security:
         - Authorization: []
@@ -945,6 +1315,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Sets the charge limit to "max range" or 100%.
       security:
         - Authorization: []
@@ -967,6 +1339,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Sets the charge limit to a custom value.
       security:
         - Authorization: []
@@ -989,6 +1363,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.'
       security:
         - Authorization: []
@@ -1011,6 +1387,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Stop the climate control (HVAC) system.
       security:
         - Authorization: []
@@ -1033,6 +1411,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: |-
         Sets the target temperature for the climate control (HVAC) system.
         Note: The parameters are always in celsius, regardless of the region the car is in or the display settings of the car.
@@ -1068,6 +1448,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Toggles the climate controls between Max Defrost and the previous setting.
       parameters:
         - schema:
@@ -1096,6 +1478,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Sets the specified seat's heater level.
       parameters:
         - schema:
@@ -1133,6 +1517,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Turn steering wheel heater on or off.
       parameters:
         - schema:
@@ -1161,6 +1547,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.'
       security:
         - Authorization: []
@@ -1183,6 +1571,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Skips to the next track in the current playlist.
       security:
         - Authorization: []
@@ -1205,6 +1595,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Skips to the previous track in the current playlist. Does nothing for streaming from Stitcher.
       security:
         - Authorization: []
@@ -1227,6 +1619,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Skips to the next saved favorite in the media system.
       security:
         - Authorization: []
@@ -1249,6 +1643,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Skips to the previous saved favorite in the media system.
       security:
         - Authorization: []
@@ -1271,6 +1667,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Turns up the volume of the media system.
       security:
         - Authorization: []
@@ -1293,6 +1691,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: Turns down the volume of the media system.
       security:
         - Authorization: []
@@ -1315,6 +1715,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: |-
         Sends a location for the car to start navigation or play a video in theatre mode.
         These docs take from the Android app, which sends the data in JSON form. However, a urlencoded POST body will work as well. The basic format to a request looks like this:
@@ -1344,6 +1746,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Schedules a software update to be installed, if one is available.'
       parameters:
         - schema:
@@ -1372,6 +1776,8 @@ paths:
             application/json:
               schema:
                 $ref: ./models/basic-command-response.v1.yaml
+        '401':
+          description: Unauthorized
       description: 'Cancels a software update, if one is scheduled and has not yet started.'
       security:
         - Authorization: []
@@ -1410,6 +1816,23 @@ paths:
             application/json:
               schema:
                 $ref: ./models/products.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    response:
+                      - id: id
+                        vehicle_id: vehicle_id
+                        vin: ':vin'
+                        display_name: ':name'
+                        option_codes: 'AD15,AF02,AH00,APF0,APH2,APPA,AU00,BCMB,BP00,BR00,BS00,BTX4,CC02,CDM0,CH05,COUS,CW02,DRLH,DSH7,DV4W,FG02,FR01,GLFR,HC00,HP00,IDBO,INBPB,IX01,LP01,LT3B,MDLX,ME02,MI02,PF00,PI01,PK00,PMBL,QLPB,RCX0,RENA,RFPX,S02B,SP00,SR04,ST02,SU01,TIC4,TM00,TP03,TR01,TRA1,TW01,UM01,USSB,UTAB,WT20,X001,X003,X007,X011,X014,X021,X025,X026,X028,X031,X037,X040,X042,YFFC,SC05'
+                        color: ''
+                        tokens:
+                          - ':token1'
+                          - ':token2'
+                        state: online
+                        id_s: ':ids'
+                        calendar_enabled: true
+                    count: 1
         '401':
           description: Unauthorized
       operationId: get-api-1-products

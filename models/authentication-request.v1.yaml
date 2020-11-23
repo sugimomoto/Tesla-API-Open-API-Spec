@@ -1,4 +1,4 @@
-title: authentication-request
+title: Authentication Request Access Token
 type: object
 properties:
   grant_type:
