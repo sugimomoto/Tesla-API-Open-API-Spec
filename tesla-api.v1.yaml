@@ -1778,7 +1778,7 @@ paths:
     post:
       tags:
         - Authentication
-      summary: ''
+      summary: Revoke Access Token
       operationId: post-oauth-revoke
       responses:
         '200':
