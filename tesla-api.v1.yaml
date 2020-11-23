@@ -1,0 +1,1178 @@
+openapi: 3.0.0
+info:
+  title: Tesla API  Open API Specification
+  version: '1.0'
+  description: |-
+    Tesla JSON API (Unofficial)
+
+    Reference :https://tesla-api.timdorr.com/vehicle/state/chargestate
+  contact:
+    name: kazuya sugimoto
+    email: sugimomoto@gmail.com
+    url: 'https://tesla-api.timdorr.com/vehicle/state/chargestate'
+servers:
+  - url: 'https://owner-api.teslamotors.com'
+paths:
+  '/api/1/vehicles/{id}/data_request/charge_state':
+    parameters:
+      - schema:
+          type: string
+          maxLength: 32
+          minLength: 0
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Charge State
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./charge-state.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-charge_state
+      description: |-
+        Information on the state of charge in the battery and its various settings.
+        https://tesla-api.timdorr.com/vehicle/state/chargestate
+      security: []
+  /api/1/vehicles:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./vehicles.v1.yaml
+      operationId: get-api-1-vehicles
+      description: |-
+        Retrieve a list of your owned vehicles (includes vehicles not yet shipped!)
+        https://tesla-api.timdorr.com/api-basics/vehicles
+      security: []
+  '/api/1/vehicles/{id}/vehicle_data':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./data.v1.yaml
+      operationId: get-api-1-vehicles-id-vehicle_data
+      description: |-
+        A rollup of all the data_request endpoints plus vehicle configuration.
+        Note: all *_range values are in miles, irrespective of GUI configuration.
+        https://tesla-api.timdorr.com/vehicle/state/data
+      security: []
+  '/api/1/vehicles/{id}/data_request/climate_state':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./climate-state.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-climate_state
+      description: |-
+        Information on the current internal temperature and climate control system.
+        https://tesla-api.timdorr.com/vehicle/state/climatestate
+      security: []
+  /oauth/token:
+    post:
+      summary: ''
+      operationId: post-oauth-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./authentication-response.v1.yaml
+      description: |-
+        The initial authentication process is via an OAuth 2.0 Password Grant with the same credentials used for tesla.com and the mobile apps.
+        The current client ID and secret are available here.
+        You will get back an access_token which is treated as an OAuth 2.0 Bearer Token. This token is passed along in an Authorization header with all future requests:
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - password
+          in: header
+          name: grant_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./authentication-request.v1.yaml
+            examples:
+              example-1: {}
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+    parameters: []
+  '/api/1/vehicles/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./vehicle.v1.yaml
+      operationId: get-api-1-vehicles-id
+      description: These resources are read-only and determine the state of the vehicle's various sub-systems.
+      security: []
+  '/api/1/vehicles/{id}/data_request/drive_state':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./drive-state.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-drive_state
+      description: Returns the driving and position state of the vehicle.
+  '/api/1/vehicles/{id}/data_request/gui_settings':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./gui-settings.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-gui_settings
+      description: 'Returns various information about the GUI settings of the car, such as unit format and range display.'
+  '/api/1/vehicles/{id}/data_request/vehicle_stat':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./vehicle-state.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-vehicle_stat
+      description: |-
+        Returns the vehicle's physical state, such as which doors are open.
+        For the trunk (rt) and frunk (ft) fields, you should interpret a zero (0) value as closed and a non-zero value as open (partially or fully).
+  '/api/1/vehicles/{id}/data_request/vehicle_config':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./vehicle-config.v1.yaml
+      operationId: get-api-1-vehicles-id-data_request-vehicle_config
+      description: 'Returns the vehicle''s configuration information including model, color, badging and wheels.'
+  '/api/1/vehicles/{id}/mobile_enabled':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./mobile-enabled.v1.yaml
+      operationId: get-api-1-vehicles-id-mobile_enabled
+  '/api/1/vehicles/{id}/nearby_charging_sites':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./nearby-charging-sites.v1.yaml
+              examples:
+                example-1: {}
+      operationId: get-api-1-vehicles-id-nearby_charging_sites
+      description: Returns a list of nearby Tesla-operated charging stations. (Requires car software version 2018.48 or higher.)
+      parameters:
+        - schema:
+            type: array
+          in: query
+          name: 'statusId[]'
+          description: ''
+  '/api/1/vehicles/{id}/wake_up':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-wake_up
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./wakeup-respponse.v1.yaml
+      description: Wakes up the car from a sleeping state.
+  '/api/1/vehicles/{id}/command/honk_horn':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-honk_horn
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Honks the horn twice.
+  '/api/1/vehicles/{id}/command/flash_lights':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-flash_lights
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Flashes the headlights once.
+  '/api/1/vehicles/{id}/command/remote_start_drive':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-remote_start_drive
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Enables keyless driving. There is a two minute window after issuing the command to start driving the car.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: password
+          description: The password for the authenticated tesla.com account.
+          required: true
+  '/api/1/vehicles/{id}/command/trigger_homelink':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-trigger_homelink
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Opens or closes the primary Homelink device. The provided location must be in proximity of stored location of the Homelink device.
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: lat
+          description: Current lattitude.
+        - schema:
+            type: number
+          in: query
+          name: lon
+          description: Current longitude.
+  '/api/1/vehicles/{id}/command/speed_limit_set_limit':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-speed_limit_set_limit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Sets the maximum speed allowed when Speed Limit Mode is active.
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: limit_mph
+          description: The speed limit in MPH. Must be between 50-90.
+  '/api/1/vehicles/{id}/command/speed_limit_activate':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-speed_limit_activate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Activates Speed Limit Mode at the currently set speed.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pin
+          description: 'The existing PIN, if previously set, or a new 4 digit PIN.'
+  '/api/1/vehicles/{id}/command/speed_limit_deactivate':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-speed_limit_deactivate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Deactivates Speed Limit Mode if it is currently active.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pin
+          description: The 4 digit PIN used to activate Speed Limit Mode.
+  '/api/1/vehicles/{id}/command/speed_limit_clear_pin':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-speed_limit_clear_pin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Clears the currently set PIN for Speed Limit Mode.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: ping
+          description: The 4 digit PIN used to activate Speed Limit Mode.
+  '/api/1/vehicles/{id}/command/set_valet_mode':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-set_valet_mode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Valet Mode limits the car''s top speed to 70MPH and 80kW of acceleration power. It also disables Homelink, Bluetooth and Wifi settings, and the ability to disable mobile access to the car. It also hides your favorites, home, and work locations in navigation.'
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: 'on'
+          description: 'true to activate, false to deactivate. Must include previous PIN if deactivating.'
+        - schema:
+            type: string
+          in: query
+          name: password
+          description: A PIN to deactivate Valet Mode. Can be blank if activating with a previous PIN.
+  '/api/1/vehicles/{id}/command/reset_valet_pin':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-reset_valet_pin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Clears the currently set PIN for Valet Mode when deactivated. A new PIN will be required when activating again.
+  '/api/1/vehicles/{id}/command/set_sentry_mode':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-set_sentry_mode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Turns sentry mode on or off.
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: 'on'
+          description: 'True to turn on, false to turn off.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+  '/api/1/vehicles/{id}/command/door_unlock':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-door_unlock
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Unlocks the doors to the car. Extends the handles on the S and X.
+  '/api/1/vehicles/{id}/command/door_lock':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-door_lock
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Locks the doors to the car. Retracts the handles on the S and X, if they are extended.'
+  '/api/1/vehicles/{id}/command/actuate_trunk':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-actuate_trunk
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.'
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - rear
+              - front
+          in: query
+          name: which_trunk
+          description: Which trunk to open/close. rear and front are the only options.
+  '/api/1/vehicles/{id}/command/window_control':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-window_control
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: |-
+        Controls the windows. Will vent or close all windows simultaneously.
+        lat and lon values must be near the current location of the car for close operation to succeed. For vent, the lat and lon values are ignored, and may both be 0 (which has been observed from the app itself).
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - vent
+              - close
+          in: query
+          name: command
+          description: What action to take with the windows. Allows the values vent and close.
+        - schema:
+            type: number
+          in: query
+          name: lat
+          description: Your current latitude.  See Notes above.
+        - schema:
+            type: number
+          in: query
+          description: Your current longitude.  See Notes above.
+          name: lon
+  '/api/1/vehicles/{id}/command/sun_roof_control':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-sun_roof_control
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: |-
+        Controls the panoramic sunroof on the Model S.
+        Note: There were state options for open (100%), comfort (~80%), and move (combined with a percent parameter), but they have since been disabled server side. It is unknown if they will return at a later time.
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - vent
+              - close
+          in: query
+          name: state
+          description: The amount to open the sunroof. Currently this only allows the values vent and close.
+  '/api/1/vehicles/{id}/command/charge_port_door_open':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_port_door_open
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Opens the charge port.
+  '/api/1/vehicles/{id}/command/charge_port_door_close':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_port_door_close
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'For vehicles with a motorized charge port, this closes it.'
+  '/api/1/vehicles/{id}/command/charge_start':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_start
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'If the car is plugged in but not currently charging, this will start it charging.'
+  '/api/1/vehicles/{id}/command/charge_stop':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_stop
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'If the car is currently charging, this will stop it.'
+  '/api/1/vehicles/{id}/command/charge_standard':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_standard
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Sets the charge limit to "standard" or ~90%.
+  '/api/1/vehicles/{id}/command/charge_max_range':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-charge_max_range
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Sets the charge limit to "max range" or 100%.
+  '/api/1/vehicles/{id}/command/set_charge_limit':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-set_charge_limit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Sets the charge limit to a custom value.
+  '/api/1/vehicles/{id}/command/auto_conditioning_start':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-auto_conditioning_start
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.'
+  '/api/1/vehicles/{id}/command/auto_conditioning_stop':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-auto_conditioning_stop
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Stop the climate control (HVAC) system.
+  '/api/1/vehicles/{id}/command/set_temps':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-set_temps
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: |-
+        Sets the target temperature for the climate control (HVAC) system.
+        Note: The parameters are always in celsius, regardless of the region the car is in or the display settings of the car.
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: driver_temp
+          description: The desired temperature on the driver's side in celsius.
+        - schema:
+            type: number
+          in: query
+          name: passenger_temp
+          description: The desired temperature on the passenger's side in celsius.
+  '/api/1/vehicles/{id}/command/set_preconditioning_max':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-set_preconditioning_max
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Toggles the climate controls between Max Defrost and the previous setting.
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: 'on'
+          description: 'True to turn on, false to turn off.'
+  '/api/1/vehicles/{id}/command/remote_seat_heater_request':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-remote_seat_heater_request
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Sets the specified seat's heater level.
+      parameters:
+        - schema:
+            type: integer
+            maximum: 5
+            minimum: 0
+          in: query
+          name: heater
+          description: The desired seat to heat. (0-5)
+        - schema:
+            type: integer
+            minimum: 0
+            maximum: 3
+          in: query
+          name: level
+          description: The desired level for the heater. (0-3)
+  '/api/1/vehicles/{id}/command/remote_steering_wheel_heater_request':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-remote_steering_wheel_heater_request
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Turn steering wheel heater on or off.
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: 'on'
+          description: 'True to turn on, false to turn off.'
+  '/api/1/vehicles/{id}/command/media_toggle_playback':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_toggle_playback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.'
+  '/api/1/vehicles/{id}/command/media_next_track':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_next_track
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Skips to the next track in the current playlist.
+  '/api/1/vehicles/{id}/command/media_prev_track':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_prev_track
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Skips to the previous track in the current playlist. Does nothing for streaming from Stitcher.
+  '/api/1/vehicles/{id}/command/media_next_fav':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_next_fav
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Skips to the next saved favorite in the media system.
+  '/api/1/vehicles/{id}/command/media_prev_fav':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_prev_fav
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Skips to the previous saved favorite in the media system.
+  '/api/1/vehicles/{id}/command/media_volume_up':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_volume_up
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Turns up the volume of the media system.
+  '/api/1/vehicles/{id}/command/media_volume_down':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-media_volume_down
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: Turns down the volume of the media system.
+  '/api/1/vehicles/{id}/command/share':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-share
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: |-
+        Sends a location for the car to start navigation or play a video in theatre mode.
+        These docs take from the Android app, which sends the data in JSON form. However, a urlencoded POST body will work as well. The basic format to a request looks like this:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./command-share-request.v1.yaml
+  '/api/1/vehicles/{id}/command/schedule_software_update':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-schedule_software_update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Schedules a software update to be installed, if one is available.'
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset_sec
+          description: How many seconds in the future to schedule the update. Set to 0 for immediate install.
+  '/api/1/vehicles/{id}/command/cancel_software_update':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-1-vehicles-id-command-cancel_software_update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./basic-command-response.v1.yaml
+      description: 'Cancels a software update, if one is scheduled and has not yet started.'
+  /sample:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./data.v1.yaml
+      operationId: get-sample
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes: {}

@@ -1,0 +1,123 @@
+title: Charge State
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      battery_heater_on:
+        type: boolean
+        example: false
+      battery_level:
+        type: number
+        example: 64
+      battery_range:
+        type: number
+        example: 167.96
+      charge_current_request:
+        type: number
+        example: 48
+      charge_current_request_max:
+        type: number
+        example: 48
+      charge_enable_request:
+        type: boolean
+        example: true
+      charge_energy_added:
+        type: number
+        example: 12.41
+      charge_limit_soc:
+        type: number
+        example: 90
+      charge_limit_soc_max:
+        type: number
+        example: 100
+      charge_limit_soc_min:
+        type: number
+        example: 50
+      charge_limit_soc_std:
+        type: number
+        example: 90
+      charge_miles_added_ideal:
+        type: number
+        example: 50
+      charge_miles_added_rated:
+        type: number
+        example: 40
+      charge_port_cold_weather_mode:
+        type: boolean
+        example: false
+      charge_port_door_open:
+        type: boolean
+        example: false
+      charge_port_latch:
+        type: string
+        example: Engaged
+      charge_rate:
+        type: number
+        example: 0
+      charge_to_max_range:
+        type: boolean
+        example: false
+      charger_actual_current:
+        type: number
+        example: 0
+      charger_pilot_current:
+        type: number
+        example: 48
+      charger_power:
+        type: number
+        example: 0
+      charger_voltage:
+        type: number
+        example: 0
+      charging_state:
+        type: string
+        example: Disconnected
+      conn_charge_cable:
+        type: string
+        example: <invalid>
+      est_battery_range:
+        type: number
+        example: 116.67
+      fast_charger_brand:
+        type: string
+        example: <invalid>
+      fast_charger_present:
+        type: boolean
+        example: false
+      fast_charger_type:
+        type: string
+        example: <invalid>
+      ideal_battery_range:
+        type: number
+        example: 209.95
+      managed_charging_active:
+        type: boolean
+        example: false
+      managed_charging_user_canceled:
+        type: boolean
+        example: false
+      max_range_charge_counter:
+        type: number
+        example: 0
+      minutes_to_full_charge:
+        type: number
+        example: 0
+      not_enough_power_to_heat:
+        type: boolean
+        example: false
+      scheduled_charging_pending:
+        type: boolean
+        example: false
+      time_to_full_charge:
+        type: number
+        example: 0
+      timestamp:
+        type: number
+        example: 1543187621530
+      trip_charging:
+        type: boolean
+        example: false
+      usable_battery_level:
+        type: number
+        example: 64

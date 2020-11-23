@@ -1,0 +1,27 @@
+title: GUI Settings
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      gui_24_hour_time:
+        type: boolean
+        example: false
+      gui_charge_rate_units:
+        type: string
+        example: mi/hr
+      gui_distance_units:
+        type: string
+        example: mi/hr
+      gui_range_display:
+        type: string
+        example: Rated
+      gui_temperature_units:
+        type: string
+        example: F
+      show_range_units:
+        type: boolean
+        example: true
+      timestamp:
+        type: number
+        example: 1543187561462

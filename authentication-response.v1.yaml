@@ -1,0 +1,18 @@
+title: authentication-response
+type: object
+properties:
+  access_token:
+    type: string
+    example: abc123
+  token_type:
+    type: string
+    example: bearer
+  expires_in:
+    type: number
+    example: 3888000
+  refresh_token:
+    type: string
+    example: cba321
+  created_at:
+    type: number
+    example: 1538359034

@@ -1,0 +1,23 @@
+title: command-share-request
+type: object
+properties:
+  type:
+    type: string
+    example: share_ext_content_raw
+  value:
+    required:
+      - android.intent.extra.TEXT
+    properties:
+      android.intent.extra.TEXT:
+        type: string
+        example: |-
+          123 Main St, City, ST 12345
+
+          https://goo.gl/maps/X
+    type: object
+  locale:
+    type: string
+    example: en-US
+  timestamp_ms:
+    type: string
+    example: '1539465730'

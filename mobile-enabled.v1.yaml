@@ -1,0 +1,6 @@
+title: Mobile Enabled
+type: object
+properties:
+  response:
+    type: boolean
+    example: true

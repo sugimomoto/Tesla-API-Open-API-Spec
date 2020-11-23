@@ -1,0 +1,18 @@
+title: authentication-request
+type: object
+properties:
+  grant_type:
+    type: string
+    example: password
+  client_id:
+    type: string
+    example: abc
+  client_secret:
+    type: string
+    example: '123'
+  email:
+    type: string
+    example: elon@teslamotors.com
+  password:
+    type: string
+    example: edisonsux

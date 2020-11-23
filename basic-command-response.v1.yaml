@@ -1,0 +1,9 @@
+title: basic-command-response
+type: object
+properties:
+  reason:
+    type: string
+    example: Sample Response
+  result:
+    type: boolean
+    example: true

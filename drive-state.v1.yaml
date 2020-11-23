@@ -1,0 +1,36 @@
+title: Drive State
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      gps_as_of:
+        type: number
+        example: 1543187664
+      heading:
+        type: number
+        example: 8
+      latitude:
+        type: number
+        example: 33.111111
+      longitude:
+        type: number
+        example: -88.111111
+      native_latitude:
+        type: number
+        example: 33.111111
+      native_location_supported:
+        type: number
+        example: 1
+      native_longitude:
+        type: number
+        example: -88.111111
+      native_type:
+        type: string
+        example: wgs
+      power:
+        type: number
+        example: 0
+      timestamp:
+        type: number
+        example: 1543187666472

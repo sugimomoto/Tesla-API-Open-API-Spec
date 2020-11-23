@@ -1,0 +1,78 @@
+title: Vehicle Config
+type: object
+properties:
+  response:
+    properties:
+      can_accept_navigation_requests:
+        type: boolean
+        example: true
+      can_actuate_trunks:
+        type: boolean
+        example: true
+      car_special_type:
+        type: string
+        example: base
+      car_type:
+        type: string
+        example: models2
+      charge_port_type:
+        type: string
+        example: US
+      eu_vehicle:
+        type: boolean
+        example: false
+      exterior_color:
+        type: string
+        example: White
+      has_air_suspension:
+        type: boolean
+        example: true
+      has_ludicrous_mode:
+        type: boolean
+        example: false
+      key_version:
+        type: number
+        example: 1
+      motorized_charge_port:
+        type: boolean
+        example: true
+      perf_config:
+        type: string
+        example: P2
+      plg:
+        type: boolean
+        example: true
+      rear_seat_heaters:
+        type: number
+        example: 0
+      rear_seat_type:
+        type: number
+        example: 0
+      rhd:
+        type: boolean
+        example: false
+      roof_color:
+        type: string
+        example: None
+      seat_type:
+        type: number
+        example: 2
+      spoiler_type:
+        type: string
+        example: None
+      sun_roof_installed:
+        type: number
+        example: 2
+      third_row_seats:
+        type: string
+        example: None
+      timestamp:
+        type: number
+        example: 1538364666096
+      trim_badging:
+        type: string
+        example: p90d
+      wheel_type:
+        type: string
+        example: AeroTurbine19
+    type: object

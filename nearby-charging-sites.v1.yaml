@@ -1,0 +1,78 @@
+title: Nearby Charging Sites
+type: object
+properties:
+  response:
+    required:
+      - congestion_sync_time_utc_secs
+      - destination_charging
+      - superchargers
+      - timestamp
+    properties:
+      congestion_sync_time_utc_secs:
+        type: number
+        example: 1545091987
+      destination_charging:
+        type: array
+        items:
+          type: object
+          properties:
+            location:
+              required:
+                - lat
+                - long
+              properties:
+                lat:
+                  type: number
+                  example: 33.811484
+                long:
+                  type: number
+                  example: -118.138451
+              type: object
+            name:
+              type: string
+              example: Long Beach Marriott
+            type:
+              type: string
+              example: destination
+            distance_miles:
+              type: number
+              example: 2.201606
+      superchargers:
+        type: array
+        items:
+          type: object
+          properties:
+            location:
+              required:
+                - lat
+                - long
+              properties:
+                lat:
+                  type: number
+                  example: 33.934471
+                long:
+                  type: number
+                  example: -118.121217
+              type: object
+            name:
+              type: string
+              example: 'Downey, CA - Stonewood Street'
+            type:
+              type: string
+              example: supercharger
+            distance_miles:
+              type: number
+              example: 2.196721
+            available_stalls:
+              type: number
+              example: 5
+            total_stalls:
+              type: number
+              example: 12
+            site_closed:
+              type: boolean
+              example: false
+      timestamp:
+        type: number
+        example: 1545092157769
+    type: object

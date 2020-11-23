@@ -1,0 +1,81 @@
+title: Climate State
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      battery_heater:
+        type: boolean
+        example: false
+      battery_heater_no_power:
+        type: boolean
+        example: false
+      climate_keeper_mode:
+        type: string
+        example: dog
+      defrost_mode:
+        type: number
+        example: 0
+      driver_temp_setting:
+        type: number
+        example: 21.6
+      fan_status:
+        type: number
+        example: 0
+      is_climate_on:
+        type: boolean
+        example: false
+      is_front_defroster_on:
+        type: boolean
+        example: false
+      is_preconditioning:
+        type: boolean
+        example: false
+      is_rear_defroster_on:
+        type: boolean
+        example: false
+      max_avail_temp:
+        type: number
+        example: 28
+      min_avail_temp:
+        type: number
+        example: 15
+      passenger_temp_setting:
+        type: number
+        example: 21.6
+      remote_heater_control_enabled:
+        type: boolean
+        example: true
+      seat_heater_left:
+        type: number
+        example: 3
+      seat_heater_rear_center:
+        type: number
+        example: 0
+      seat_heater_rear_left:
+        type: number
+        example: 1
+      seat_heater_rear_left_back:
+        type: number
+        example: 0
+      seat_heater_rear_right:
+        type: number
+        example: 1
+      seat_heater_rear_right_back:
+        type: number
+        example: 0
+      seat_heater_right:
+        type: number
+        example: 2
+      side_mirror_heaters:
+        type: boolean
+        example: false
+      steering_wheel_heater:
+        type: boolean
+        example: false
+      timestamp:
+        type: number
+        example: 1543187641727
+      wiper_blade_heater:
+        type: boolean
+        example: false

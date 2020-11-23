@@ -1,0 +1,177 @@
+title: Vehicle State
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      api_version:
+        type: number
+        example: 7
+      autopark_state_v3:
+        type: string
+        example: standby
+      autopark_style:
+        type: string
+        example: dead_man
+      calendar_supported:
+        type: boolean
+        example: true
+      car_version:
+        type: string
+        example: 2019.40.2.1 38f55d9f9205
+      center_display_state:
+        type: number
+        example: 0
+      df:
+        type: number
+        example: 0
+      dr:
+        type: number
+        example: 0
+      fd_window:
+        type: number
+        example: 0
+      fp_window:
+        type: number
+        example: 0
+      ft:
+        type: number
+        example: 0
+      homelink_device_count:
+        type: number
+        example: 0
+      homelink_nearby:
+        type: boolean
+        example: true
+      is_user_present:
+        type: boolean
+        example: false
+      last_autopark_error:
+        type: string
+        example: no_error
+      locked:
+        type: boolean
+        example: true
+      media_state:
+        required:
+          - remote_control_enabled
+        properties:
+          remote_control_enabled:
+            type: boolean
+            example: true
+        type: object
+      notifications_supported:
+        type: boolean
+        example: true
+      odometer:
+        type: number
+        example: 36051.517239
+      parsed_calendar_supported:
+        type: boolean
+        example: true
+      pf:
+        type: number
+        example: 0
+      pr:
+        type: number
+        example: 0
+      rd_window:
+        type: number
+        example: 0
+      remote_start:
+        type: boolean
+        example: false
+      remote_start_enabled:
+        type: boolean
+        example: true
+      remote_start_supported:
+        type: boolean
+        example: true
+      rp_window:
+        type: number
+        example: 0
+      rt:
+        type: number
+        example: 0
+      sentry_mode:
+        type: boolean
+        example: true
+      sentry_mode_available:
+        type: boolean
+        example: true
+      smart_summon_available:
+        type: boolean
+        example: true
+      software_update:
+        required:
+          - download_perc
+          - expected_duration_sec
+          - install_perc
+          - scheduled_time_ms
+          - status
+          - version
+        properties:
+          download_perc:
+            type: number
+            example: 100
+          expected_duration_sec:
+            type: number
+            example: 2700
+          install_perc:
+            type: number
+            example: 10
+          scheduled_time_ms:
+            type: number
+            example: 1575689678432
+          status:
+            type: string
+            example: scheduled
+          version:
+            type: string
+            example: 2019.40.2.1
+        type: object
+      speed_limit_mode:
+        required:
+          - active
+          - current_limit_mph
+          - max_limit_mph
+          - min_limit_mph
+          - pin_code_set
+        properties:
+          active:
+            type: boolean
+            example: false
+          current_limit_mph:
+            type: number
+            example: 50
+          max_limit_mph:
+            type: number
+            example: 90
+          min_limit_mph:
+            type: number
+            example: 50
+          pin_code_set:
+            type: boolean
+            example: false
+        type: object
+      summon_standby_mode_enabled:
+        type: boolean
+        example: true
+      sun_roof_percent_open:
+        type: number
+        example: 0
+      sun_roof_state:
+        type: string
+        example: unknown
+      timestamp:
+        type: number
+        example: 1543187581934
+      valet_mode:
+        type: boolean
+        example: false
+      valet_pin_needed:
+        type: boolean
+        example: true
+      vehicle_name:
+        type: string
+        example: Nikola 2.0
