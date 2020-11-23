@@ -1,0 +1,6 @@
+title: revoke-token-request.v1
+type: object
+properties:
+  access_token:
+    type: string
+    example: access_token
