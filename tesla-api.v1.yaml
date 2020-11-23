@@ -544,7 +544,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Vehicle Config
       tags:
         - VehicleData
       responses:
@@ -1800,7 +1800,8 @@ paths:
   /api/1/products:
     get:
       summary: Products
-      tags: []
+      tags:
+        - VehicleData
       responses:
         '200':
           description: OK
