@@ -1,0 +1,4790 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Tesla API  Open API Specification (Unofficial)",
+    "version": "1.0",
+    "description": "Tesla API Open API Spec (Unofficial)",
+    "contact": {
+      "name": "kazuya sugimoto",
+      "email": "sugimomoto@gmail.com",
+      "url": "https://twitter.com/sugimomoto"
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "This APIs can get Access Token and revoke Access Token."
+    },
+    {
+      "name": "VehicleData",
+      "description": "This APIs can get regarding Vehicle data."
+    },
+    {
+      "name": "VehicleCommand",
+      "description": "This APIs can execute each commands for controls of Tesla."
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://owner-api.teslamotors.com"
+    }
+  ],
+  "paths": {
+    "/api/1/vehicles/{id}/data_request/charge_state": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Charge State",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Charge-state_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": {
+                        "battery_heater_on": false,
+                        "battery_level": 64,
+                        "battery_range": 167.96,
+                        "charge_current_request": 48,
+                        "charge_current_request_max": 48,
+                        "charge_enable_request": true,
+                        "charge_energy_added": 12.41,
+                        "charge_limit_soc": 90,
+                        "charge_limit_soc_max": 100,
+                        "charge_limit_soc_min": 50,
+                        "charge_limit_soc_std": 90,
+                        "charge_miles_added_ideal": 50,
+                        "charge_miles_added_rated": 40,
+                        "charge_port_cold_weather_mode": false,
+                        "charge_port_door_open": false,
+                        "charge_port_latch": "Engaged",
+                        "charge_rate": 0,
+                        "charge_to_max_range": false,
+                        "charger_actual_current": 0,
+                        "charger_pilot_current": 48,
+                        "charger_power": 0,
+                        "charger_voltage": 0,
+                        "charging_state": "Disconnected",
+                        "conn_charge_cable": "<invalid>",
+                        "est_battery_range": 116.67,
+                        "fast_charger_brand": "<invalid>",
+                        "fast_charger_present": false,
+                        "fast_charger_type": "<invalid>",
+                        "ideal_battery_range": 209.95,
+                        "managed_charging_active": false,
+                        "managed_charging_user_canceled": false,
+                        "max_range_charge_counter": 0,
+                        "minutes_to_full_charge": 0,
+                        "not_enough_power_to_heat": false,
+                        "scheduled_charging_pending": false,
+                        "time_to_full_charge": 0,
+                        "timestamp": 1543187621530,
+                        "trip_charging": false,
+                        "usable_battery_level": 64
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-charge_state",
+        "description": "Information on the state of charge in the battery and its various settings.\nhttps://tesla-api.timdorr.com/vehicle/state/chargestate",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles": {
+      "get": {
+        "summary": "Vehicles",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicles_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": [
+                        {
+                          "id": 12345678901234568,
+                          "vehicle_id": 1234567890,
+                          "vin": "5YJSA11111111111",
+                          "display_name": "Nikola 2.0",
+                          "option_codes": "MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS",
+                          "tokens": [
+                            "abcdef1234567890",
+                            "1234567890abcdef"
+                          ],
+                          "state": "online",
+                          "in_service": false,
+                          "id_s": "12345678901234567",
+                          "calendar_enabled": true,
+                          "api_version": 7
+                        }
+                      ],
+                      "count": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles",
+        "description": "Retrieve a list of your owned vehicles (includes vehicles not yet shipped!)\nhttps://tesla-api.timdorr.com/api-basics/vehicles",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/vehicle_data": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Vehicle Data",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": {
+                        "id": 12345678901234568,
+                        "user_id": 123,
+                        "vehicle_id": 1234567890,
+                        "vin": "5YJSA11111111111",
+                        "display_name": "Nikola 2.0",
+                        "option_codes": "AD15,MDL3,PBSB,RENA,BT37,ID3W,RF3G,S3PB,DRLH,DV2W,W39B,APF0,COUS,BC3B,CH07,PC30,FC3P,FG31,GLFR,HL31,HM31,IL31,LTPB,MR31,FM3B,RS3H,SA3P,STCP,SC04,SU3C,T3CA,TW00,TM00,UT3P,WR00,AU3P,APH3,AF00,ZCST,MI00,CDM0",
+                        "access_type": "OWNER",
+                        "tokens": [
+                          "abcdef1234567890",
+                          "1234567890abcdef"
+                        ],
+                        "state": "online",
+                        "in_service": false,
+                        "id_s": "12345678901234567",
+                        "calendar_enabled": true,
+                        "api_version": 10,
+                        "drive_state": {
+                          "gps_as_of": 1604977043,
+                          "heading": 5,
+                          "latitude": 33.111111,
+                          "longitude": -88.111111,
+                          "native_latitude": 33.111111,
+                          "native_location_supported": 1,
+                          "native_longitude": -88.111111,
+                          "native_type": "wgs",
+                          "power": 0,
+                          "timestamp": 1604977044186
+                        },
+                        "climate_state": {
+                          "battery_heater": false,
+                          "battery_heater_no_power": false,
+                          "climate_keeper_mode": "off",
+                          "defrost_mode": 0,
+                          "driver_temp_setting": 22.8,
+                          "fan_status": 0,
+                          "inside_temp": 26.9,
+                          "is_auto_conditioning_on": false,
+                          "is_climate_on": false,
+                          "is_front_defroster_on": false,
+                          "is_preconditioning": false,
+                          "is_rear_defroster_on": false,
+                          "left_temp_direction": -224,
+                          "max_avail_temp": 28,
+                          "min_avail_temp": 15,
+                          "outside_temp": 23,
+                          "passenger_temp_setting": 22.8,
+                          "remote_heater_control_enabled": false,
+                          "right_temp_direction": -224,
+                          "seat_heater_left": 0,
+                          "seat_heater_right": 0,
+                          "side_mirror_heaters": false,
+                          "timestamp": 1604977044186,
+                          "wiper_blade_heater": false
+                        },
+                        "charge_state": {
+                          "battery_heater_on": false,
+                          "battery_level": 90,
+                          "battery_range": 224.47,
+                          "charge_current_request": 40,
+                          "charge_current_request_max": 40,
+                          "charge_enable_request": true,
+                          "charge_energy_added": 29.41,
+                          "charge_limit_soc": 90,
+                          "charge_limit_soc_max": 100,
+                          "charge_limit_soc_min": 50,
+                          "charge_limit_soc_std": 90,
+                          "charge_miles_added_ideal": 118.5,
+                          "charge_miles_added_rated": 95,
+                          "charge_port_door_open": true,
+                          "charge_port_latch": "Engaged",
+                          "charge_rate": 0,
+                          "charge_to_max_range": false,
+                          "charger_actual_current": 0,
+                          "charger_pilot_current": 40,
+                          "charger_power": 0,
+                          "charger_voltage": 0,
+                          "charging_state": "Complete",
+                          "conn_charge_cable": "SAE",
+                          "est_battery_range": 171.24,
+                          "fast_charger_brand": "<invalid>",
+                          "fast_charger_present": false,
+                          "fast_charger_type": "<invalid>",
+                          "ideal_battery_range": 280.59,
+                          "managed_charging_active": false,
+                          "managed_charging_user_canceled": false,
+                          "max_range_charge_counter": 0,
+                          "minutes_to_full_charge": 0,
+                          "not_enough_power_to_heat": false,
+                          "scheduled_charging_pending": false,
+                          "time_to_full_charge": 0,
+                          "timestamp": 1604977044186,
+                          "trip_charging": false,
+                          "usable_battery_level": 90
+                        },
+                        "gui_settings": {
+                          "gui_24_hour_time": false,
+                          "gui_charge_rate_units": "mi/hr",
+                          "gui_distance_units": "mi/hr",
+                          "gui_range_display": "Rated",
+                          "gui_temperature_units": "F",
+                          "show_range_units": true,
+                          "timestamp": 1604977044186
+                        },
+                        "vehicle_state": {
+                          "api_version": 10,
+                          "autopark_state_v2": "standby",
+                          "autopark_style": "standard",
+                          "calendar_supported": true,
+                          "car_version": "2020.36.16 3e9e4e8dd287",
+                          "center_display_state": 0,
+                          "df": 0,
+                          "dr": 0,
+                          "ft": 0,
+                          "homelink_device_count": 2,
+                          "homelink_nearby": true,
+                          "is_user_present": false,
+                          "last_autopark_error": "no_error",
+                          "locked": false,
+                          "media_state": {
+                            "remote_control_enabled": true
+                          },
+                          "notifications_supported": true,
+                          "odometer": 57509.856033,
+                          "parsed_calendar_supported": true,
+                          "pf": 0,
+                          "pr": 0,
+                          "remote_start": false,
+                          "remote_start_enabled": true,
+                          "remote_start_supported": true,
+                          "rt": 0,
+                          "sentry_mode": false,
+                          "sentry_mode_available": true,
+                          "smart_summon_available": true,
+                          "software_update": {
+                            "download_perc": 0,
+                            "expected_duration_sec": 2700,
+                            "install_perc": 1,
+                            "status": "",
+                            "version": ""
+                          },
+                          "speed_limit_mode": {
+                            "active": false,
+                            "current_limit_mph": 50,
+                            "max_limit_mph": 90,
+                            "min_limit_mph": 50,
+                            "pin_code_set": true
+                          },
+                          "summon_standby_mode_enabled": false,
+                          "sun_roof_percent_open": 0,
+                          "sun_roof_state": "closed",
+                          "timestamp": 1604977044184,
+                          "valet_mode": false,
+                          "valet_pin_needed": true,
+                          "vehicle_name": "Nikola 2.0"
+                        },
+                        "vehicle_config": {
+                          "can_accept_navigation_requests": true,
+                          "can_actuate_trunks": true,
+                          "car_special_type": "base",
+                          "car_type": "models2",
+                          "charge_port_type": "US",
+                          "ece_restrictions": false,
+                          "eu_vehicle": false,
+                          "exterior_color": "White",
+                          "has_air_suspension": true,
+                          "has_ludicrous_mode": false,
+                          "motorized_charge_port": true,
+                          "plg": true,
+                          "rear_seat_heaters": 0,
+                          "rear_seat_type": 0,
+                          "rhd": false,
+                          "roof_color": "None",
+                          "seat_type": 2,
+                          "spoiler_type": "None",
+                          "sun_roof_installed": 2,
+                          "third_row_seats": "None",
+                          "timestamp": 1604977044187,
+                          "trim_badging": "p90d",
+                          "use_range_badging": false,
+                          "wheel_type": "AeroTurbine19"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-vehicle_data",
+        "description": "A rollup of all the data_request endpoints plus vehicle configuration.\nNote: all *_range values are in miles, irrespective of GUI configuration.\nhttps://tesla-api.timdorr.com/vehicle/state/data",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/data_request/climate_state": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Climate State",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Climate-state_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": {
+                        "battery_heater": false,
+                        "battery_heater_no_power": false,
+                        "climate_keeper_mode": "off",
+                        "defrost_mode": 0,
+                        "driver_temp_setting": 22.8,
+                        "fan_status": 0,
+                        "inside_temp": 27,
+                        "is_auto_conditioning_on": false,
+                        "is_climate_on": false,
+                        "is_front_defroster_on": false,
+                        "is_preconditioning": false,
+                        "is_rear_defroster_on": false,
+                        "left_temp_direction": -232,
+                        "max_avail_temp": 28,
+                        "min_avail_temp": 15,
+                        "outside_temp": 23,
+                        "passenger_temp_setting": 22.8,
+                        "remote_heater_control_enabled": false,
+                        "right_temp_direction": -232,
+                        "seat_heater_left": 0,
+                        "seat_heater_right": 0,
+                        "side_mirror_heaters": false,
+                        "timestamp": 1604977244530,
+                        "wiper_blade_heater": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-climate_state",
+        "description": "Information on the current internal temperature and climate control system.\nhttps://tesla-api.timdorr.com/vehicle/state/climatestate",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/oauth/token?grat_type=password": {
+      "post": {
+        "summary": "Get Access Token",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "post-oauth-token",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication-response_V1"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "access_token": "abc123",
+                      "token_type": "bearer",
+                      "expires_in": 3888000,
+                      "refresh_token": "cba321",
+                      "created_at": 1538359034
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The initial authentication process is via an OAuth 2.0 Password Grant with the same credentials used for tesla.com and the mobile apps.\nThe current client ID and secret are available here.\nYou will get back an access_token which is treated as an OAuth 2.0 Bearer Token. This token is passed along in an Authorization header with all future requests:",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Authentication-request_V1"
+              },
+              "examples": {
+                "exampl": {
+                  "value": {
+                    "grant_type": "password",
+                    "client_id": "abc",
+                    "client_secret": "123",
+                    "email": "elon@teslamotors.com",
+                    "password": "edisonsux"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      },
+      "parameters": []
+    },
+    "/api/1/vehicles/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Vehicle",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle_V1"
+                },
+                "examples": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id",
+        "description": "These resources are read-only and determine the state of the vehicle's various sub-systems.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/data_request/drive_state": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Drive State",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Drive-state_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": {
+                        "gps_as_of": 1543187664,
+                        "heading": 8,
+                        "latitude": 33.111111,
+                        "longitude": -88.111111,
+                        "native_latitude": 33.111111,
+                        "native_location_supported": 1,
+                        "native_longitude": -88.111111,
+                        "native_type": "wgs",
+                        "power": 0,
+                        "timestamp": 1543187666472
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-drive_state",
+        "description": "Returns the driving and position state of the vehicle.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/data_request/gui_settings": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "GUI Settings",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gui-settings_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-gui_settings",
+        "description": "Returns various information about the GUI settings of the car, such as unit format and range display.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/data_request/vehicle_stat": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Vehicle State",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle-state_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-vehicle_stat",
+        "description": "Returns the vehicle's physical state, such as which doors are open.\nFor the trunk (rt) and frunk (ft) fields, you should interpret a zero (0) value as closed and a non-zero value as open (partially or fully).",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/data_request/vehicle_config": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Vehicle Config",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle-config_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-data_request-vehicle_config",
+        "description": "Returns the vehicle's configuration information including model, color, badging and wheels.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/mobile_enabled": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Mobile Enabled",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mobile-enabled_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-mobile_enabled",
+        "description": "Whether mobile access is enabled.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/nearby_charging_sites": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Nearby Charging Sites",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Nearby-charging-sites_V1"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "response": {
+                        "congestion_sync_time_utc_secs": 1545091987,
+                        "destination_charging": [
+                          {
+                            "location": {
+                              "lat": 33.811484,
+                              "long": -118.138451
+                            },
+                            "name": "Long Beach Marriott",
+                            "type": "destination",
+                            "distance_miles": 2.201606
+                          }
+                        ],
+                        "superchargers": [
+                          {
+                            "location": {
+                              "lat": 33.934471,
+                              "long": -118.121217
+                            },
+                            "name": "Downey, CA - Stonewood Street",
+                            "type": "supercharger",
+                            "distance_miles": 2.196721,
+                            "available_stalls": 5,
+                            "total_stalls": 12,
+                            "site_closed": false
+                          }
+                        ],
+                        "timestamp": 1545092157769
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-vehicles-id-nearby_charging_sites",
+        "description": "Returns a list of nearby Tesla-operated charging stations. (Requires car software version 2018.48 or higher.)",
+        "parameters": [
+          {
+            "schema": {
+              "type": "array"
+            },
+            "in": "query",
+            "name": "statusId[]",
+            "description": ""
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/wake_up": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Wake up",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-wake_up",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": {
+                        "id": 12345678901234568,
+                        "vehicle_id": 1234567890,
+                        "vin": "5YJSA11111111111",
+                        "display_name": "Nikola 2.0",
+                        "option_codes": "MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS",
+                        "tokens": [
+                          "abcdef1234567890",
+                          "1234567890abcdef"
+                        ],
+                        "state": "online",
+                        "in_service": false,
+                        "id_s": "12345678901234567",
+                        "calendar_enabled": true,
+                        "api_version": 7
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Wakes up the car from a sleeping state.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/honk_horn": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Honk Horn",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-honk_horn",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Honks the horn twice.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/flash_lights": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Flash Lights",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-flash_lights",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Flashes the headlights once.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/remote_start_drive": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Remote Start Drive",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-remote_start_drive",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Enables keyless driving. There is a two minute window after issuing the command to start driving the car.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "password",
+            "description": "The password for the authenticated tesla.com account.",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/trigger_homelink": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Trigger Homelink",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-trigger_homelink",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Opens or closes the primary Homelink device. The provided location must be in proximity of stored location of the Homelink device.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "lat",
+            "description": "Current lattitude."
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "lon",
+            "description": "Current longitude."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/speed_limit_set_limit": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Speed Limit Set Limit",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-speed_limit_set_limit",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the maximum speed allowed when Speed Limit Mode is active.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit_mph",
+            "description": "The speed limit in MPH. Must be between 50-90."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/speed_limit_activate": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Speed Limit Activate",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-speed_limit_activate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Activates Speed Limit Mode at the currently set speed.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "pin",
+            "description": "The existing PIN, if previously set, or a new 4 digit PIN."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/speed_limit_deactivate": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Speed Limit Deactivate",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-speed_limit_deactivate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Deactivates Speed Limit Mode if it is currently active.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "pin",
+            "description": "The 4 digit PIN used to activate Speed Limit Mode."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/speed_limit_clear_pin": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Speed Limit Clear Pin",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-speed_limit_clear_pin",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Clears the currently set PIN for Speed Limit Mode.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ping",
+            "description": "The 4 digit PIN used to activate Speed Limit Mode."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/set_valet_mode": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Valet Mode",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-set_valet_mode",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Valet Mode limits the car's top speed to 70MPH and 80kW of acceleration power. It also disables Homelink, Bluetooth and Wifi settings, and the ability to disable mobile access to the car. It also hides your favorites, home, and work locations in navigation.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "on",
+            "description": "true to activate, false to deactivate. Must include previous PIN if deactivating."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "password",
+            "description": "A PIN to deactivate Valet Mode. Can be blank if activating with a previous PIN."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/reset_valet_pin": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Reset Valet Pin",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-reset_valet_pin",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Clears the currently set PIN for Valet Mode when deactivated. A new PIN will be required when activating again.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/set_sentry_mode": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Sentry Mode",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-set_sentry_mode",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Turns sentry mode on or off.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "on",
+            "description": "True to turn on, false to turn off."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/door_unlock": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Door Unlock",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-door_unlock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Unlocks the doors to the car. Extends the handles on the S and X.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/door_lock": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Door Lock",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-door_lock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Locks the doors to the car. Retracts the handles on the S and X, if they are extended.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/actuate_trunk": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Actuate Trunk",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-actuate_trunk",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "rear",
+                "front"
+              ]
+            },
+            "in": "query",
+            "name": "which_trunk",
+            "description": "Which trunk to open/close. rear and front are the only options."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/window_control": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Window Control",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-window_control",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Controls the windows. Will vent or close all windows simultaneously.\nlat and lon values must be near the current location of the car for close operation to succeed. For vent, the lat and lon values are ignored, and may both be 0 (which has been observed from the app itself).",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "vent",
+                "close"
+              ]
+            },
+            "in": "query",
+            "name": "command",
+            "description": "What action to take with the windows. Allows the values vent and close."
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "lat",
+            "description": "Your current latitude.  See Notes above."
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "description": "Your current longitude.  See Notes above.",
+            "name": "lon"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/sun_roof_control": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Sun Roof Control",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-sun_roof_control",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Controls the panoramic sunroof on the Model S.\nNote: There were state options for open (100%), comfort (~80%), and move (combined with a percent parameter), but they have since been disabled server side. It is unknown if they will return at a later time.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "vent",
+                "close"
+              ]
+            },
+            "in": "query",
+            "name": "state",
+            "description": "The amount to open the sunroof. Currently this only allows the values vent and close."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_port_door_open": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Port Door Open",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_port_door_open",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Opens the charge port.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_port_door_close": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Port Door Close",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_port_door_close",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "For vehicles with a motorized charge port, this closes it.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_start": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Start",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_start",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "If the car is plugged in but not currently charging, this will start it charging.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_stop": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Stop",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_stop",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "If the car is currently charging, this will stop it.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_standard": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Standard",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_standard",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the charge limit to \"standard\" or ~90%.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/charge_max_range": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Charge Max Range",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-charge_max_range",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the charge limit to \"max range\" or 100%.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/set_charge_limit": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Charge Limit",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-set_charge_limit",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the charge limit to a custom value.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/auto_conditioning_start": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Conditioning Start",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-auto_conditioning_start",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/auto_conditioning_stop": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Conditioning Stop",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-auto_conditioning_stop",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Stop the climate control (HVAC) system.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/set_temps": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Temps",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-set_temps",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the target temperature for the climate control (HVAC) system.\nNote: The parameters are always in celsius, regardless of the region the car is in or the display settings of the car.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "driver_temp",
+            "description": "The desired temperature on the driver's side in celsius."
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "passenger_temp",
+            "description": "The desired temperature on the passenger's side in celsius."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/set_preconditioning_max": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Set Preconditioning Max",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-set_preconditioning_max",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Toggles the climate controls between Max Defrost and the previous setting.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "on",
+            "description": "True to turn on, false to turn off."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/remote_seat_heater_request": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Remote Seat Heater Request",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-remote_seat_heater_request",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sets the specified seat's heater level.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "maximum": 5,
+              "minimum": 0
+            },
+            "in": "query",
+            "name": "heater",
+            "description": "The desired seat to heat. (0-5)"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "in": "query",
+            "name": "level",
+            "description": "The desired level for the heater. (0-3)"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/remote_steering_wheel_heater_request": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Remote Steering Wheel Heater Request",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-remote_steering_wheel_heater_request",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Turn steering wheel heater on or off.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "on",
+            "description": "True to turn on, false to turn off."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_toggle_playback": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Toggle Playback",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_toggle_playback",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_next_track": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Next Track",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_next_track",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Skips to the next track in the current playlist.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_prev_track": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Prev Track",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_prev_track",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Skips to the previous track in the current playlist. Does nothing for streaming from Stitcher.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_next_fav": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Next Fav",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_next_fav",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Skips to the next saved favorite in the media system.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_prev_fav": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Prev Fav",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_prev_fav",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Skips to the previous saved favorite in the media system.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_volume_up": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Volume Up",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_volume_up",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Turns up the volume of the media system.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/media_volume_down": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Media Volume Down",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-media_volume_down",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Turns down the volume of the media system.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/share": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Share",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-share",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Sends a location for the car to start navigation or play a video in theatre mode.\nThese docs take from the Android app, which sends the data in JSON form. However, a urlencoded POST body will work as well. The basic format to a request looks like this:",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Command-share-request_V1"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/schedule_software_update": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Schedule Software Update",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-schedule_software_update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Schedules a software update to be installed, if one is available.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "offset_sec",
+            "description": "How many seconds in the future to schedule the update. Set to 0 for immediate install."
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/api/1/vehicles/{id}/command/cancel_software_update": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Command Cancel Software Update",
+        "tags": [
+          "VehicleCommand"
+        ],
+        "operationId": "post-api-1-vehicles-id-command-cancel_software_update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Basic-command-response_V1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Cancels a software update, if one is scheduled and has not yet started.",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/oauth/revoke": {
+      "parameters": [],
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Revoke Access Token",
+        "operationId": "post-oauth-revoke",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Revokes the {access_token} issued by the token command",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Revoke-token-request_V1"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/1/products": {
+      "get": {
+        "summary": "Products",
+        "tags": [
+          "VehicleData"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "response": [
+                        {
+                          "id": "id",
+                          "vehicle_id": "vehicle_id",
+                          "vin": ":vin",
+                          "display_name": ":name",
+                          "option_codes": "AD15,AF02,AH00,APF0,APH2,APPA,AU00,BCMB,BP00,BR00,BS00,BTX4,CC02,CDM0,CH05,COUS,CW02,DRLH,DSH7,DV4W,FG02,FR01,GLFR,HC00,HP00,IDBO,INBPB,IX01,LP01,LT3B,MDLX,ME02,MI02,PF00,PI01,PK00,PMBL,QLPB,RCX0,RENA,RFPX,S02B,SP00,SR04,ST02,SU01,TIC4,TM00,TP03,TR01,TRA1,TW01,UM01,USSB,UTAB,WT20,X001,X003,X007,X011,X014,X021,X025,X026,X028,X031,X037,X040,X042,YFFC,SC05",
+                          "color": "",
+                          "tokens": [
+                            ":token1",
+                            ":token2"
+                          ],
+                          "state": "online",
+                          "id_s": ":ids",
+                          "calendar_enabled": true
+                        }
+                      ],
+                      "count": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-api-1-products",
+        "description": "Returns all products including vehicles, powerwalls, and energy sites",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/oauth/token?grant_type=refresh_token": {
+      "post": {
+        "summary": "Reflesh Access Token",
+        "operationId": "post-oauth-token?grant_type=password",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication-response_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "access_token": "abc123",
+                      "token_type": "bearer",
+                      "expires_in": 3888000,
+                      "refresh_token": "cba321",
+                      "created_at": 1538359034
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error_invalid_grant_V1"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "error": "invalid_grant",
+                      "error_description": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Authentication-request-reflesh_V1"
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "client_secret": "string",
+                    "client_id": "string",
+                    "grant_type": "refresh_token",
+                    "refresh_token": "407001ceaed2bd70f853ea59c5940597bdc50daf3175afacb19129f0ac4e85a1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Reflesh Access Token",
+        "tags": [
+          "Authentication"
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "Authentication-request-reflesh_V1": {
+        "title": "Authentication Request Reflesh Token",
+        "type": "object",
+        "properties": {
+          "client_secret": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string"
+          },
+          "grant_type": {
+            "type": "string",
+            "example": "refresh_token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "example": "407001ceaed2bd70f853ea59c5940597bdc50daf3175afacb19129f0ac4e85a1"
+          }
+        }
+      },
+      "Authentication-request_V1": {
+        "title": "Authentication Request Access Token",
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "example": "password"
+          },
+          "client_id": {
+            "type": "string",
+            "example": "abc"
+          },
+          "client_secret": {
+            "type": "string",
+            "example": "123"
+          },
+          "email": {
+            "type": "string",
+            "example": "elon@teslamotors.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "edisonsux"
+          }
+        }
+      },
+      "Authentication-response_V1": {
+        "title": "Authentication Response Access Token",
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "example": "abc123"
+          },
+          "token_type": {
+            "type": "string",
+            "example": "bearer"
+          },
+          "expires_in": {
+            "type": "number",
+            "example": 3888000
+          },
+          "refresh_token": {
+            "type": "string",
+            "example": "cba321"
+          },
+          "created_at": {
+            "type": "number",
+            "example": 1538359034
+          }
+        }
+      },
+      "Basic-command-response_V1": {
+        "title": "Basic Command Response",
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "example": "Sample Response"
+          },
+          "result": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Charge-state_V1": {
+        "title": "Charge State",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "battery_heater_on": {
+                "type": "boolean",
+                "example": false
+              },
+              "battery_level": {
+                "type": "number",
+                "example": 64
+              },
+              "battery_range": {
+                "type": "number",
+                "example": 167.96
+              },
+              "charge_current_request": {
+                "type": "number",
+                "example": 48
+              },
+              "charge_current_request_max": {
+                "type": "number",
+                "example": 48
+              },
+              "charge_enable_request": {
+                "type": "boolean",
+                "example": true
+              },
+              "charge_energy_added": {
+                "type": "number",
+                "example": 12.41
+              },
+              "charge_limit_soc": {
+                "type": "number",
+                "example": 90
+              },
+              "charge_limit_soc_max": {
+                "type": "number",
+                "example": 100
+              },
+              "charge_limit_soc_min": {
+                "type": "number",
+                "example": 50
+              },
+              "charge_limit_soc_std": {
+                "type": "number",
+                "example": 90
+              },
+              "charge_miles_added_ideal": {
+                "type": "number",
+                "example": 50
+              },
+              "charge_miles_added_rated": {
+                "type": "number",
+                "example": 40
+              },
+              "charge_port_cold_weather_mode": {
+                "type": "boolean",
+                "example": false
+              },
+              "charge_port_door_open": {
+                "type": "boolean",
+                "example": false
+              },
+              "charge_port_latch": {
+                "type": "string",
+                "example": "Engaged"
+              },
+              "charge_rate": {
+                "type": "number",
+                "example": 0
+              },
+              "charge_to_max_range": {
+                "type": "boolean",
+                "example": false
+              },
+              "charger_actual_current": {
+                "type": "number",
+                "example": 0
+              },
+              "charger_pilot_current": {
+                "type": "number",
+                "example": 48
+              },
+              "charger_power": {
+                "type": "number",
+                "example": 0
+              },
+              "charger_voltage": {
+                "type": "number",
+                "example": 0
+              },
+              "charging_state": {
+                "type": "string",
+                "example": "Disconnected"
+              },
+              "conn_charge_cable": {
+                "type": "string",
+                "example": "<invalid>"
+              },
+              "est_battery_range": {
+                "type": "number",
+                "example": 116.67
+              },
+              "fast_charger_brand": {
+                "type": "string",
+                "example": "<invalid>"
+              },
+              "fast_charger_present": {
+                "type": "boolean",
+                "example": false
+              },
+              "fast_charger_type": {
+                "type": "string",
+                "example": "<invalid>"
+              },
+              "ideal_battery_range": {
+                "type": "number",
+                "example": 209.95
+              },
+              "managed_charging_active": {
+                "type": "boolean",
+                "example": false
+              },
+              "managed_charging_user_canceled": {
+                "type": "boolean",
+                "example": false
+              },
+              "max_range_charge_counter": {
+                "type": "number",
+                "example": 0
+              },
+              "minutes_to_full_charge": {
+                "type": "number",
+                "example": 0
+              },
+              "not_enough_power_to_heat": {
+                "type": "boolean",
+                "example": false
+              },
+              "scheduled_charging_pending": {
+                "type": "boolean",
+                "example": false
+              },
+              "time_to_full_charge": {
+                "type": "number",
+                "example": 0
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1543187621530
+              },
+              "trip_charging": {
+                "type": "boolean",
+                "example": false
+              },
+              "usable_battery_level": {
+                "type": "number",
+                "example": 64
+              }
+            }
+          }
+        }
+      },
+      "Climate-state_V1": {
+        "title": "Climate State",
+        "type": "object",
+        "properties": {
+          "response": {
+            "properties": {
+              "battery_heater": {
+                "type": "boolean",
+                "example": false
+              },
+              "battery_heater_no_power": {
+                "type": "boolean",
+                "example": false
+              },
+              "climate_keeper_mode": {
+                "type": "string",
+                "example": "off"
+              },
+              "defrost_mode": {
+                "type": "number",
+                "example": 0
+              },
+              "driver_temp_setting": {
+                "type": "number",
+                "example": 22.8
+              },
+              "fan_status": {
+                "type": "number",
+                "example": 0
+              },
+              "inside_temp": {
+                "type": "number",
+                "example": 27
+              },
+              "is_auto_conditioning_on": {
+                "type": "boolean",
+                "example": false
+              },
+              "is_climate_on": {
+                "type": "boolean",
+                "example": false
+              },
+              "is_front_defroster_on": {
+                "type": "boolean",
+                "example": false
+              },
+              "is_preconditioning": {
+                "type": "boolean",
+                "example": false
+              },
+              "is_rear_defroster_on": {
+                "type": "boolean",
+                "example": false
+              },
+              "left_temp_direction": {
+                "type": "number",
+                "example": -232
+              },
+              "max_avail_temp": {
+                "type": "number",
+                "example": 28
+              },
+              "min_avail_temp": {
+                "type": "number",
+                "example": 15
+              },
+              "outside_temp": {
+                "type": "number",
+                "example": 23
+              },
+              "passenger_temp_setting": {
+                "type": "number",
+                "example": 22.8
+              },
+              "remote_heater_control_enabled": {
+                "type": "boolean",
+                "example": false
+              },
+              "right_temp_direction": {
+                "type": "number",
+                "example": -232
+              },
+              "seat_heater_left": {
+                "type": "number",
+                "example": 0
+              },
+              "seat_heater_right": {
+                "type": "number",
+                "example": 0
+              },
+              "side_mirror_heaters": {
+                "type": "boolean",
+                "example": false
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1604977244530
+              },
+              "wiper_blade_heater": {
+                "type": "boolean",
+                "example": false
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "Command-share-request_V1": {
+        "title": "Command Share Request",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "share_ext_content_raw"
+          },
+          "value": {
+            "required": [
+              "android.intent.extra.TEXT"
+            ],
+            "properties": {
+              "android.intent.extra.TEXT": {
+                "type": "string",
+                "example": "123 Main St, City, ST 12345\n\nhttps://goo.gl/maps/X"
+              }
+            },
+            "type": "object"
+          },
+          "locale": {
+            "type": "string",
+            "example": "en-US"
+          },
+          "timestamp_ms": {
+            "type": "string",
+            "example": "1539465730"
+          }
+        }
+      },
+      "Data_V1": {
+        "title": "Vehicle Data",
+        "type": "object",
+        "properties": {
+          "response": {
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 12345678901234568
+              },
+              "user_id": {
+                "type": "number",
+                "example": 123
+              },
+              "vehicle_id": {
+                "type": "number",
+                "example": 1234567890
+              },
+              "vin": {
+                "type": "string",
+                "example": "5YJSA11111111111"
+              },
+              "display_name": {
+                "type": "string",
+                "example": "Nikola 2.0"
+              },
+              "option_codes": {
+                "type": "string",
+                "example": "AD15,MDL3,PBSB,RENA,BT37,ID3W,RF3G,S3PB,DRLH,DV2W,W39B,APF0,COUS,BC3B,CH07,PC30,FC3P,FG31,GLFR,HL31,HM31,IL31,LTPB,MR31,FM3B,RS3H,SA3P,STCP,SC04,SU3C,T3CA,TW00,TM00,UT3P,WR00,AU3P,APH3,AF00,ZCST,MI00,CDM0"
+              },
+              "access_type": {
+                "type": "string",
+                "example": "OWNER"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "abcdef1234567890",
+                  "1234567890abcdef"
+                ]
+              },
+              "state": {
+                "type": "string",
+                "example": "online"
+              },
+              "in_service": {
+                "type": "boolean",
+                "example": false
+              },
+              "id_s": {
+                "type": "string",
+                "example": "12345678901234567"
+              },
+              "calendar_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "api_version": {
+                "type": "number",
+                "example": 10
+              },
+              "drive_state": {
+                "properties": {
+                  "gps_as_of": {
+                    "type": "number",
+                    "example": 1604977043
+                  },
+                  "heading": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "example": 33.111111
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "example": -88.111111
+                  },
+                  "native_latitude": {
+                    "type": "number",
+                    "example": 33.111111
+                  },
+                  "native_location_supported": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "native_longitude": {
+                    "type": "number",
+                    "example": -88.111111
+                  },
+                  "native_type": {
+                    "type": "string",
+                    "example": "wgs"
+                  },
+                  "power": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044186
+                  }
+                },
+                "type": "object"
+              },
+              "climate_state": {
+                "properties": {
+                  "battery_heater": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "battery_heater_no_power": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "climate_keeper_mode": {
+                    "type": "string",
+                    "example": "off"
+                  },
+                  "defrost_mode": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "driver_temp_setting": {
+                    "type": "number",
+                    "example": 22.8
+                  },
+                  "fan_status": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "inside_temp": {
+                    "type": "number",
+                    "example": 26.9
+                  },
+                  "is_auto_conditioning_on": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "is_climate_on": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "is_front_defroster_on": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "is_preconditioning": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "is_rear_defroster_on": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "left_temp_direction": {
+                    "type": "number",
+                    "example": -224
+                  },
+                  "max_avail_temp": {
+                    "type": "number",
+                    "example": 28
+                  },
+                  "min_avail_temp": {
+                    "type": "number",
+                    "example": 15
+                  },
+                  "outside_temp": {
+                    "type": "number",
+                    "example": 23
+                  },
+                  "passenger_temp_setting": {
+                    "type": "number",
+                    "example": 22.8
+                  },
+                  "remote_heater_control_enabled": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "right_temp_direction": {
+                    "type": "number",
+                    "example": -224
+                  },
+                  "seat_heater_left": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "seat_heater_right": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "side_mirror_heaters": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044186
+                  },
+                  "wiper_blade_heater": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                },
+                "type": "object"
+              },
+              "charge_state": {
+                "properties": {
+                  "battery_heater_on": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "battery_level": {
+                    "type": "number",
+                    "example": 90
+                  },
+                  "battery_range": {
+                    "type": "number",
+                    "example": 224.47
+                  },
+                  "charge_current_request": {
+                    "type": "number",
+                    "example": 40
+                  },
+                  "charge_current_request_max": {
+                    "type": "number",
+                    "example": 40
+                  },
+                  "charge_enable_request": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "charge_energy_added": {
+                    "type": "number",
+                    "example": 29.41
+                  },
+                  "charge_limit_soc": {
+                    "type": "number",
+                    "example": 90
+                  },
+                  "charge_limit_soc_max": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "charge_limit_soc_min": {
+                    "type": "number",
+                    "example": 50
+                  },
+                  "charge_limit_soc_std": {
+                    "type": "number",
+                    "example": 90
+                  },
+                  "charge_miles_added_ideal": {
+                    "type": "number",
+                    "example": 118.5
+                  },
+                  "charge_miles_added_rated": {
+                    "type": "number",
+                    "example": 95
+                  },
+                  "charge_port_door_open": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "charge_port_latch": {
+                    "type": "string",
+                    "example": "Engaged"
+                  },
+                  "charge_rate": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "charge_to_max_range": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "charger_actual_current": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "charger_pilot_current": {
+                    "type": "number",
+                    "example": 40
+                  },
+                  "charger_power": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "charger_voltage": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "charging_state": {
+                    "type": "string",
+                    "example": "Complete"
+                  },
+                  "conn_charge_cable": {
+                    "type": "string",
+                    "example": "SAE"
+                  },
+                  "est_battery_range": {
+                    "type": "number",
+                    "example": 171.24
+                  },
+                  "fast_charger_brand": {
+                    "type": "string",
+                    "example": "<invalid>"
+                  },
+                  "fast_charger_present": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "fast_charger_type": {
+                    "type": "string",
+                    "example": "<invalid>"
+                  },
+                  "ideal_battery_range": {
+                    "type": "number",
+                    "example": 280.59
+                  },
+                  "managed_charging_active": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "managed_charging_user_canceled": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "max_range_charge_counter": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "minutes_to_full_charge": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "not_enough_power_to_heat": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "scheduled_charging_pending": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "time_to_full_charge": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044186
+                  },
+                  "trip_charging": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "usable_battery_level": {
+                    "type": "number",
+                    "example": 90
+                  }
+                },
+                "type": "object"
+              },
+              "gui_settings": {
+                "properties": {
+                  "gui_24_hour_time": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "gui_charge_rate_units": {
+                    "type": "string",
+                    "example": "mi/hr"
+                  },
+                  "gui_distance_units": {
+                    "type": "string",
+                    "example": "mi/hr"
+                  },
+                  "gui_range_display": {
+                    "type": "string",
+                    "example": "Rated"
+                  },
+                  "gui_temperature_units": {
+                    "type": "string",
+                    "example": "F"
+                  },
+                  "show_range_units": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044186
+                  }
+                },
+                "type": "object"
+              },
+              "vehicle_state": {
+                "properties": {
+                  "api_version": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "autopark_state_v2": {
+                    "type": "string",
+                    "example": "standby"
+                  },
+                  "autopark_style": {
+                    "type": "string",
+                    "example": "standard"
+                  },
+                  "calendar_supported": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "car_version": {
+                    "type": "string",
+                    "example": "2020.36.16 3e9e4e8dd287"
+                  },
+                  "center_display_state": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "df": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "dr": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "ft": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "homelink_device_count": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "homelink_nearby": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "is_user_present": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "last_autopark_error": {
+                    "type": "string",
+                    "example": "no_error"
+                  },
+                  "locked": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "media_state": {
+                    "required": [
+                      "remote_control_enabled"
+                    ],
+                    "properties": {
+                      "remote_control_enabled": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "notifications_supported": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "odometer": {
+                    "type": "number",
+                    "example": 57509.856033
+                  },
+                  "parsed_calendar_supported": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "pf": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "pr": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "remote_start": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "remote_start_enabled": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "remote_start_supported": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "rt": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "sentry_mode": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "sentry_mode_available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "smart_summon_available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "software_update": {
+                    "properties": {
+                      "download_perc": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "expected_duration_sec": {
+                        "type": "number",
+                        "example": 2700
+                      },
+                      "install_perc": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "version": {
+                        "type": "string",
+                        "example": ""
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "speed_limit_mode": {
+                    "properties": {
+                      "active": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "current_limit_mph": {
+                        "type": "number",
+                        "example": 50
+                      },
+                      "max_limit_mph": {
+                        "type": "number",
+                        "example": 90
+                      },
+                      "min_limit_mph": {
+                        "type": "number",
+                        "example": 50
+                      },
+                      "pin_code_set": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "summon_standby_mode_enabled": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "sun_roof_percent_open": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "sun_roof_state": {
+                    "type": "string",
+                    "example": "closed"
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044184
+                  },
+                  "valet_mode": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "valet_pin_needed": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "vehicle_name": {
+                    "type": "string",
+                    "example": "Nikola 2.0"
+                  }
+                },
+                "type": "object"
+              },
+              "vehicle_config": {
+                "properties": {
+                  "can_accept_navigation_requests": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "can_actuate_trunks": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "car_special_type": {
+                    "type": "string",
+                    "example": "base"
+                  },
+                  "car_type": {
+                    "type": "string",
+                    "example": "models2"
+                  },
+                  "charge_port_type": {
+                    "type": "string",
+                    "example": "US"
+                  },
+                  "ece_restrictions": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "eu_vehicle": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "exterior_color": {
+                    "type": "string",
+                    "example": "White"
+                  },
+                  "has_air_suspension": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "has_ludicrous_mode": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "motorized_charge_port": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "plg": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "rear_seat_heaters": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "rear_seat_type": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "rhd": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "roof_color": {
+                    "type": "string",
+                    "example": "None"
+                  },
+                  "seat_type": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "spoiler_type": {
+                    "type": "string",
+                    "example": "None"
+                  },
+                  "sun_roof_installed": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "third_row_seats": {
+                    "type": "string",
+                    "example": "None"
+                  },
+                  "timestamp": {
+                    "type": "number",
+                    "example": 1604977044187
+                  },
+                  "trim_badging": {
+                    "type": "string",
+                    "example": "p90d"
+                  },
+                  "use_range_badging": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "wheel_type": {
+                    "type": "string",
+                    "example": "AeroTurbine19"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "Drive-state_V1": {
+        "title": "Drive State",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "gps_as_of": {
+                "type": "number",
+                "example": 1543187664
+              },
+              "heading": {
+                "type": "number",
+                "example": 8
+              },
+              "latitude": {
+                "type": "number",
+                "example": 33.111111
+              },
+              "longitude": {
+                "type": "number",
+                "example": -88.111111
+              },
+              "native_latitude": {
+                "type": "number",
+                "example": 33.111111
+              },
+              "native_location_supported": {
+                "type": "number",
+                "example": 1
+              },
+              "native_longitude": {
+                "type": "number",
+                "example": -88.111111
+              },
+              "native_type": {
+                "type": "string",
+                "example": "wgs"
+              },
+              "power": {
+                "type": "number",
+                "example": 0
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1543187666472
+              }
+            }
+          }
+        }
+      },
+      "Error_invalid_grant_V1": {
+        "title": "Error Invalid Grant",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "invalid_grant"
+          },
+          "error_description": {
+            "type": "string",
+            "example": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
+          }
+        }
+      },
+      "Gui-settings_V1": {
+        "title": "GUI Settings",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "gui_24_hour_time": {
+                "type": "boolean",
+                "example": false
+              },
+              "gui_charge_rate_units": {
+                "type": "string",
+                "example": "mi/hr"
+              },
+              "gui_distance_units": {
+                "type": "string",
+                "example": "mi/hr"
+              },
+              "gui_range_display": {
+                "type": "string",
+                "example": "Rated"
+              },
+              "gui_temperature_units": {
+                "type": "string",
+                "example": "F"
+              },
+              "show_range_units": {
+                "type": "boolean",
+                "example": true
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1543187561462
+              }
+            }
+          }
+        }
+      },
+      "Mobile-enabled_V1": {
+        "title": "Mobile Enabled",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Nearby-charging-sites_V1": {
+        "title": "Nearby Charging Sites",
+        "type": "object",
+        "properties": {
+          "response": {
+            "required": [
+              "congestion_sync_time_utc_secs",
+              "destination_charging",
+              "superchargers",
+              "timestamp"
+            ],
+            "properties": {
+              "congestion_sync_time_utc_secs": {
+                "type": "number",
+                "example": 1545091987
+              },
+              "destination_charging": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "required": [
+                        "lat",
+                        "long"
+                      ],
+                      "properties": {
+                        "lat": {
+                          "type": "number",
+                          "example": 33.811484
+                        },
+                        "long": {
+                          "type": "number",
+                          "example": -118.138451
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Long Beach Marriott"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "destination"
+                    },
+                    "distance_miles": {
+                      "type": "number",
+                      "example": 2.201606
+                    }
+                  }
+                }
+              },
+              "superchargers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "required": [
+                        "lat",
+                        "long"
+                      ],
+                      "properties": {
+                        "lat": {
+                          "type": "number",
+                          "example": 33.934471
+                        },
+                        "long": {
+                          "type": "number",
+                          "example": -118.121217
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Downey, CA - Stonewood Street"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "supercharger"
+                    },
+                    "distance_miles": {
+                      "type": "number",
+                      "example": 2.196721
+                    },
+                    "available_stalls": {
+                      "type": "number",
+                      "example": 5
+                    },
+                    "total_stalls": {
+                      "type": "number",
+                      "example": 12
+                    },
+                    "site_closed": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1545092157769
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "Products_V1": {
+        "title": "Products",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "id"
+                },
+                "vehicle_id": {
+                  "type": "string",
+                  "example": "vehicle_id"
+                },
+                "vin": {
+                  "type": "string",
+                  "example": ":vin"
+                },
+                "display_name": {
+                  "type": "string",
+                  "example": ":name"
+                },
+                "option_codes": {
+                  "type": "string",
+                  "example": "AD15,AF02,AH00,APF0,APH2,APPA,AU00,BCMB,BP00,BR00,BS00,BTX4,CC02,CDM0,CH05,COUS,CW02,DRLH,DSH7,DV4W,FG02,FR01,GLFR,HC00,HP00,IDBO,INBPB,IX01,LP01,LT3B,MDLX,ME02,MI02,PF00,PI01,PK00,PMBL,QLPB,RCX0,RENA,RFPX,S02B,SP00,SR04,ST02,SU01,TIC4,TM00,TP03,TR01,TRA1,TW01,UM01,USSB,UTAB,WT20,X001,X003,X007,X011,X014,X021,X025,X026,X028,X031,X037,X040,X042,YFFC,SC05"
+                },
+                "color": {
+                  "type": "string",
+                  "example": ""
+                },
+                "tokens": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    ":token1",
+                    ":token2"
+                  ]
+                },
+                "state": {
+                  "type": "string",
+                  "example": "online"
+                },
+                "id_s": {
+                  "type": "string",
+                  "example": ":ids"
+                },
+                "calendar_enabled": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          },
+          "count": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "Revoke-token-request_V1": {
+        "title": "Authentication Request Revoke Token",
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "example": "access_token"
+          }
+        }
+      },
+      "Vehicle-config_V1": {
+        "title": "Vehicle Config",
+        "type": "object",
+        "properties": {
+          "response": {
+            "properties": {
+              "can_accept_navigation_requests": {
+                "type": "boolean",
+                "example": true
+              },
+              "can_actuate_trunks": {
+                "type": "boolean",
+                "example": true
+              },
+              "car_special_type": {
+                "type": "string",
+                "example": "base"
+              },
+              "car_type": {
+                "type": "string",
+                "example": "models2"
+              },
+              "charge_port_type": {
+                "type": "string",
+                "example": "US"
+              },
+              "eu_vehicle": {
+                "type": "boolean",
+                "example": false
+              },
+              "exterior_color": {
+                "type": "string",
+                "example": "White"
+              },
+              "has_air_suspension": {
+                "type": "boolean",
+                "example": true
+              },
+              "has_ludicrous_mode": {
+                "type": "boolean",
+                "example": false
+              },
+              "key_version": {
+                "type": "number",
+                "example": 1
+              },
+              "motorized_charge_port": {
+                "type": "boolean",
+                "example": true
+              },
+              "perf_config": {
+                "type": "string",
+                "example": "P2"
+              },
+              "plg": {
+                "type": "boolean",
+                "example": true
+              },
+              "rear_seat_heaters": {
+                "type": "number",
+                "example": 0
+              },
+              "rear_seat_type": {
+                "type": "number",
+                "example": 0
+              },
+              "rhd": {
+                "type": "boolean",
+                "example": false
+              },
+              "roof_color": {
+                "type": "string",
+                "example": "None"
+              },
+              "seat_type": {
+                "type": "number",
+                "example": 2
+              },
+              "spoiler_type": {
+                "type": "string",
+                "example": "None"
+              },
+              "sun_roof_installed": {
+                "type": "number",
+                "example": 2
+              },
+              "third_row_seats": {
+                "type": "string",
+                "example": "None"
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1538364666096
+              },
+              "trim_badging": {
+                "type": "string",
+                "example": "p90d"
+              },
+              "wheel_type": {
+                "type": "string",
+                "example": "AeroTurbine19"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "Vehicle-state_V1": {
+        "title": "Vehicle State",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "api_version": {
+                "type": "number",
+                "example": 7
+              },
+              "autopark_state_v3": {
+                "type": "string",
+                "example": "standby"
+              },
+              "autopark_style": {
+                "type": "string",
+                "example": "dead_man"
+              },
+              "calendar_supported": {
+                "type": "boolean",
+                "example": true
+              },
+              "car_version": {
+                "type": "string",
+                "example": "2019.40.2.1 38f55d9f9205"
+              },
+              "center_display_state": {
+                "type": "number",
+                "example": 0
+              },
+              "df": {
+                "type": "number",
+                "example": 0
+              },
+              "dr": {
+                "type": "number",
+                "example": 0
+              },
+              "fd_window": {
+                "type": "number",
+                "example": 0
+              },
+              "fp_window": {
+                "type": "number",
+                "example": 0
+              },
+              "ft": {
+                "type": "number",
+                "example": 0
+              },
+              "homelink_device_count": {
+                "type": "number",
+                "example": 0
+              },
+              "homelink_nearby": {
+                "type": "boolean",
+                "example": true
+              },
+              "is_user_present": {
+                "type": "boolean",
+                "example": false
+              },
+              "last_autopark_error": {
+                "type": "string",
+                "example": "no_error"
+              },
+              "locked": {
+                "type": "boolean",
+                "example": true
+              },
+              "media_state": {
+                "required": [
+                  "remote_control_enabled"
+                ],
+                "properties": {
+                  "remote_control_enabled": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                },
+                "type": "object"
+              },
+              "notifications_supported": {
+                "type": "boolean",
+                "example": true
+              },
+              "odometer": {
+                "type": "number",
+                "example": 36051.517239
+              },
+              "parsed_calendar_supported": {
+                "type": "boolean",
+                "example": true
+              },
+              "pf": {
+                "type": "number",
+                "example": 0
+              },
+              "pr": {
+                "type": "number",
+                "example": 0
+              },
+              "rd_window": {
+                "type": "number",
+                "example": 0
+              },
+              "remote_start": {
+                "type": "boolean",
+                "example": false
+              },
+              "remote_start_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "remote_start_supported": {
+                "type": "boolean",
+                "example": true
+              },
+              "rp_window": {
+                "type": "number",
+                "example": 0
+              },
+              "rt": {
+                "type": "number",
+                "example": 0
+              },
+              "sentry_mode": {
+                "type": "boolean",
+                "example": true
+              },
+              "sentry_mode_available": {
+                "type": "boolean",
+                "example": true
+              },
+              "smart_summon_available": {
+                "type": "boolean",
+                "example": true
+              },
+              "software_update": {
+                "required": [
+                  "download_perc",
+                  "expected_duration_sec",
+                  "install_perc",
+                  "scheduled_time_ms",
+                  "status",
+                  "version"
+                ],
+                "properties": {
+                  "download_perc": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "expected_duration_sec": {
+                    "type": "number",
+                    "example": 2700
+                  },
+                  "install_perc": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "scheduled_time_ms": {
+                    "type": "number",
+                    "example": 1575689678432
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "scheduled"
+                  },
+                  "version": {
+                    "type": "string",
+                    "example": "2019.40.2.1"
+                  }
+                },
+                "type": "object"
+              },
+              "speed_limit_mode": {
+                "required": [
+                  "active",
+                  "current_limit_mph",
+                  "max_limit_mph",
+                  "min_limit_mph",
+                  "pin_code_set"
+                ],
+                "properties": {
+                  "active": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "current_limit_mph": {
+                    "type": "number",
+                    "example": 50
+                  },
+                  "max_limit_mph": {
+                    "type": "number",
+                    "example": 90
+                  },
+                  "min_limit_mph": {
+                    "type": "number",
+                    "example": 50
+                  },
+                  "pin_code_set": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                },
+                "type": "object"
+              },
+              "summon_standby_mode_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "sun_roof_percent_open": {
+                "type": "number",
+                "example": 0
+              },
+              "sun_roof_state": {
+                "type": "string",
+                "example": "unknown"
+              },
+              "timestamp": {
+                "type": "number",
+                "example": 1543187581934
+              },
+              "valet_mode": {
+                "type": "boolean",
+                "example": false
+              },
+              "valet_pin_needed": {
+                "type": "boolean",
+                "example": true
+              },
+              "vehicle_name": {
+                "type": "string",
+                "example": "Nikola 2.0"
+              }
+            }
+          }
+        }
+      },
+      "Vehicle_V1": {
+        "title": "vehicle",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 12345678901234568
+              },
+              "vehicle_id": {
+                "type": "number",
+                "example": 1234567890
+              },
+              "vin": {
+                "type": "string",
+                "example": "5YJSA11111111111"
+              },
+              "display_name": {
+                "type": "string",
+                "example": "Nikola 2.0"
+              },
+              "option_codes": {
+                "type": "string",
+                "example": "MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS"
+              },
+              "tokens": {
+                "type": "array",
+                "example": [
+                  "abcdef1234567890",
+                  "1234567890abcdef"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "state": {
+                "type": "string",
+                "example": "online"
+              },
+              "in_service": {
+                "type": "boolean",
+                "example": false
+              },
+              "id_s": {
+                "type": "string",
+                "example": "12345678901234567"
+              },
+              "calendar_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "api_version": {
+                "type": "number",
+                "example": 7
+              }
+            }
+          }
+        }
+      },
+      "Vehicles_V1": {
+        "title": "Vehicles",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 12345678901234568
+                },
+                "vehicle_id": {
+                  "type": "number",
+                  "example": 1234567890
+                },
+                "vin": {
+                  "type": "string",
+                  "example": "5YJSA11111111111"
+                },
+                "display_name": {
+                  "type": "string",
+                  "example": "Nikola 2.0"
+                },
+                "option_codes": {
+                  "type": "string",
+                  "example": "MDLS,RENA,AF02,APF1,APH2,APPB,AU01,BC0R,BP00,BR00,BS00,CDM0,CH05,PBCW,CW00,DCF0,DRLH,DSH7,DV4W,FG02,FR04,HP00,IDBA,IX01,LP01,ME02,MI01,PF01,PI01,PK00,PS01,PX00,PX4D,QTVB,RFP2,SC01,SP00,SR01,SU01,TM00,TP03,TR00,UTAB,WTAS,X001,X003,X007,X011,X013,X021,X024,X027,X028,X031,X037,X040,X044,YFFC,COUS"
+                },
+                "tokens": {
+                  "type": "array",
+                  "example": [
+                    "abcdef1234567890",
+                    "1234567890abcdef"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "state": {
+                  "type": "string",
+                  "example": "online"
+                },
+                "in_service": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "id_s": {
+                  "type": "string",
+                  "example": "12345678901234567"
+                },
+                "calendar_enabled": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "api_version": {
+                  "type": "number",
+                  "example": 7
+                }
+              }
+            }
+          },
+          "count": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Authorization": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Bearer {access_token} from authentication"
+      }
+    }
+  }
+}
